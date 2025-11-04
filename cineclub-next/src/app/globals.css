@@ -1,8 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #080204;
+  --background-gradient: radial-gradient(circle at 20% 20%, rgba(80, 0, 12, 0.85), transparent 55%),
+    radial-gradient(circle at 80% 10%, rgba(120, 0, 24, 0.65), transparent 45%),
+    radial-gradient(circle at 50% 80%, rgba(160, 0, 40, 0.55), transparent 60%),
+    #050103;
+  --foreground: #f8e9ec;
 }
 
 @theme inline {
@@ -14,312 +18,159 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #050103;
+    --background-gradient: radial-gradient(circle at 15% 15%, rgba(120, 0, 32, 0.85), transparent 55%),
+      radial-gradient(circle at 80% 0%, rgba(220, 48, 96, 0.55), transparent 50%),
+      radial-gradient(circle at 50% 90%, rgba(180, 24, 72, 0.45), transparent 60%),
+      #040002;
+    --foreground: #ffe9ef;
   }
 }
 
 body {
-  background: var(--background);
+  background: var(--background-gradient);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
 }
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url('/images/film-strip.svg');
+  background-size: 600px 160px;
+  background-repeat: repeat;
+  opacity: 0.08;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  animation: filmScroll 24s linear infinite;
+}
+
 @layer utilities {
   .animate-fade-in {
     animation: fadeIn 1s ease-in-out;
   }
+
+  .animate-spotlight {
+    animation: spotlight 6s ease-in-out infinite;
+  }
+
+  .animate-pop {
+    animation: pop 0.8s ease-out both;
+  }
+
+  .animate-marquee {
+    animation: marquee 18s linear infinite;
+  }
+
+  .shadow-cinema {
+    box-shadow: 0 20px 60px rgba(255, 80, 120, 0.25), 0 0 30px rgba(255, 120, 160, 0.25);
+  }
+
+  .border-neon {
+    box-shadow: 0 0 20px rgba(255, 80, 140, 0.45) inset, 0 0 32px rgba(255, 80, 140, 0.32);
+  }
+
+  .bg-cinema-grid {
+    background-image: linear-gradient(rgba(255, 82, 119, 0.12) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 82, 119, 0.12) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes spotlight {
+    0% {
+      filter: drop-shadow(0 0 18px rgba(255, 128, 160, 0.3));
+    }
+    45% {
+      filter: drop-shadow(0 0 38px rgba(255, 196, 212, 0.45));
+    }
+    100% {
+      filter: drop-shadow(0 0 18px rgba(255, 128, 160, 0.3));
+    }
+  }
+
+  @keyframes pop {
+    0% {
+      opacity: 0;
+      transform: scale(0.86) translateY(30px);
+    }
+    60% {
+      opacity: 1;
+      transform: scale(1.03) translateY(-6px);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  @keyframes marquee {
+    0% {
+      background-position-x: 0;
+    }
+    100% {
+      background-position-x: -600px;
+    }
+  }
+
+  @keyframes filmScroll {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: -600px 0;
+    }
   }
 }
+
 .mf-button {
   position: absolute;
-  bottom: 20px;
-  right: 24px;
-  font-family: 'Georgia', serif; /* Una fuente elegante */
-  font-size: 1.5rem; /* 24px */
-  font-weight: 700;
-  color: white;
-  opacity: 0.7;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-  transition: all 0.3s ease;
-  animation: subtle-pulse 3s infinite ease-in-out;
+  bottom: 32px;
+  right: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  font-family: 'Cinzel', 'Georgia', serif;
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffe9ef;
+  background: linear-gradient(135deg, rgba(255, 80, 120, 0.85), rgba(120, 0, 40, 0.95));
+  border-radius: 9999px;
+  text-shadow: 0 0 14px rgba(255, 196, 212, 0.85);
+  box-shadow: 0 0 30px rgba(255, 80, 120, 0.4), inset 0 0 12px rgba(255, 164, 188, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+  animation: neonPulse 2.6s ease-in-out infinite;
 }
 
 .mf-button:hover {
-  opacity: 1;
-  transform: scale(1.1);
-  text-shadow: 0 0 20px rgba(255, 255, 255, 1);
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 0 40px rgba(255, 128, 160, 0.6), inset 0 0 16px rgba(255, 204, 216, 0.6);
+  filter: brightness(1.1);
   cursor: pointer;
 }
 
-@keyframes subtle-pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
-
-
-/* --- Estilos para los Girasoles --- */
-.sunflower {
-  position: relative;
-  width: 20px; /* Ancho del tallo */
-  height: 300px;
-  margin: 0 20px;
-  animation: grow 2s ease-out forwards;
-  transform-origin: bottom center;
-  transform: scaleY(0); /* Empieza sin altura */
-}
-
-.stem {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to right, #228B22, #32CD32); /* Verde tallo */
-  border-radius: 10px 10px 0 0;
-}
-
-.leaf {
-  position: absolute;
-  width: 60px;
-  height: 40px;
-  background-color: #32CD32;
-  border-radius: 5px 40px 5px 40px;
-  animation: wave 2s infinite alternate ease-in-out;
-}
-
-.leaf-1 {
-  bottom: 100px;
-  left: -40px;
-  transform: rotate(-30deg);
-  animation-delay: 1s;
-}
-
-.leaf-2 {
-  bottom: 150px;
-  right: -40px;
-  transform: rotate(210deg);
-  animation-delay: 1.5s;
-}
-
-.flower-head {
-  position: absolute;
-  top: -60px; /* Posiciona la cabeza sobre el tallo */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 120px;
-  height: 120px;
-  animation: bloom 1.5s 1s ease-out forwards;
-  opacity: 0;
-}
-
-.sunflower-center {
-  position: absolute;
-  width: 60px;
-  height: 60px;
-  background-color: #583c00; /* Marrón oscuro */
-  border-radius: 50%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
-}
-
-.petal {
-  position: absolute;
-  width: 40px;
-  height: 60px;
-  background-color: #FFD700; /* Amarillo girasol */
-  border-radius: 20px 20px 0 0;
-  top: 50%;
-  left: 50%;
-  transform-origin: bottom center;
-  margin-left: -20px; /* Mitad del ancho */
-  margin-top: -30px; /* Mitad de la altura (para centrarlo) */
-  z-index: 1;
-  /* Aplicamos la rotación desde el JS */
-}
-
-/* --- Animaciones de Flores --- */
-@keyframes grow {
-  from { transform: scaleY(0); }
-  to { transform: scaleY(1); }
-}
-
-@keyframes bloom {
-  from { opacity: 0; transform: scale(0.5) rotate(-45deg); }
-  to { opacity: 1; transform: scale(1) rotate(0deg); }
-}
-
-@keyframes wave {
-  from { transform: rotate(-30deg) skewX(-10deg); }
-  to { transform: rotate(-20deg) skewX(10deg); }
-}
-/* --- Estilos para los Tulipanes --- */
-.tulip {
-  position: relative;
-  width: 15px; /* Tallo más delgado */
-  height: 300px;
-  margin: 0 25px;
-  animation: grow 2s ease-out forwards;
-  transform-origin: bottom center;
-  transform: scaleY(0); /* Empieza sin altura */
-}
-
-.tulip .stem {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to right, #2a9d8f, #43b3a4); /* Verde tallo */
-  border-radius: 10px 10px 0 0;
-}
-
-.tulip .leaf {
-  position: absolute;
-  width: 30px;
-  height: 100px;
-  background-color: #2a9d8f;
-  border-radius: 5px 40px 5px 40px;
-  animation: wave-leaf 3s infinite alternate ease-in-out;
-}
-
-.tulip .leaf-1 {
-  bottom: 80px;
-  left: -20px;
-  transform: rotate(-20deg);
-  animation-delay: 1s;
-}
-
-.tulip .leaf-2 {
-  bottom: 120px;
-  right: -20px;
-  transform: rotate(190deg);
-  animation-delay: 1.5s;
-}
-
-.tulip .flower-cup {
-  position: absolute;
-  top: -25px; /* Posiciona la flor */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 100px;
-  animation: bloom-tulip 1.5s 1s ease-out forwards;
-  opacity: 0;
-}
-
-/* Los 3 pétalos que forman el tulipán */
-.tulip .petal-1,
-.tulip .petal-2,
-.tulip .petal-3 {
-  position: absolute;
-  width: 40px;
-  height: 100px;
-  /* La forma clave del pétalo de tulipán */
-  border-radius: 40px 40px 10px 10px; 
-  box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
-}
-
-.tulip .petal-1 {
-  /* Pétalo central */
-  left: 20px;
-  z-index: 2;
-}
-.tulip .petal-2 {
-  /* Pétalo izquierdo */
-  left: 0;
-  transform: rotate(-25deg);
-  transform-origin: bottom center;
-  z-index: 1;
-}
-.tulip .petal-3 {
-  /* Pétalo derecho */
-  right: 0;
-  transform: rotate(25deg);
-  transform-origin: bottom center;
-  z-index: 1;
-}
-
-
-/* --- Estilos para los Corazones Flotantes --- */
-.heart-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  z-index: 0; /* Detrás de las flores y el texto */
-}
-
-.heart {
-  position: absolute;
-  bottom: -50px; /* Empieza fuera de la pantalla */
-  width: 20px;
-  height: 20px;
-  background-color: #f72585; /* Color fucsia */
-  opacity: 0;
-  animation-name: float-up;
-  animation-timing-function: ease-in;
-  animation-iteration-count: infinite;
-}
-
-/* El truco de CSS para formar un corazón con pseudo-elementos */
-.heart::before,
-.heart::after {
-  content: '';
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background-color: #f72585;
-  border-radius: 50%;
-}
-
-.heart::before {
-  top: -10px;
-  left: 0;
-}
-
-.heart::after {
-  top: 0;
-  left: 10px;
-}
-
-/* --- Animaciones de Flores y Corazones --- */
-
-/* Animación de crecimiento (igual que antes) */
-@keyframes grow {
-  from { transform: scaleY(0); }
-  to { transform: scaleY(1); }
-}
-
-/* Animación de florecimiento (un poco más sutil) */
-@keyframes bloom-tulip {
-  from { opacity: 0; transform: translateX(-50%) scale(0.8); }
-  to { opacity: 1; transform: translateX(-50%) scale(1); }
-}
-
-/* Animación de hoja (más suave) */
-@keyframes wave-leaf {
-  from { transform: rotate(-20deg); }
-  to { transform: rotate(-10deg); }
-}
-
-/* Animación de corazones flotando */
-@keyframes float-up {
-  0% {
-    opacity: 0;
-    transform: translateY(0) rotate(0);
-  }
-  10% {
-    opacity: 0.7;
-  }
-  90% {
-    opacity: 0.7;
-  }
+@keyframes neonPulse {
+  0%,
   100% {
-    opacity: 0;
-    /* Mueve el corazón 100vh (toda la altura) hacia arriba y lo rota */
-    transform: translateY(-100vh) rotate(360deg);
+    box-shadow: 0 0 30px rgba(255, 80, 120, 0.4), inset 0 0 12px rgba(255, 164, 188, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 38px rgba(255, 160, 200, 0.55), inset 0 0 20px rgba(255, 200, 220, 0.7);
   }
 }
