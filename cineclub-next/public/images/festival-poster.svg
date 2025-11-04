@@ -1,0 +1,20 @@
+<svg width="280" height="360" viewBox="0 0 280 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="280" height="360" rx="28" fill="url(#grad)"/>
+  <g opacity="0.9">
+    <rect x="36" y="46" width="208" height="168" rx="22" fill="#130103" stroke="#FF92A5" stroke-width="4"/>
+    <path d="M68 98H212" stroke="#FF92A5" stroke-width="6" stroke-linecap="round"/>
+    <path d="M68 142H212" stroke="#FF92A5" stroke-width="6" stroke-linecap="round" opacity="0.6"/>
+    <path d="M68 186H212" stroke="#FF92A5" stroke-width="6" stroke-linecap="round" opacity="0.35"/>
+    <circle cx="92" cy="232" r="28" fill="#FF92A5" opacity="0.35"/>
+    <circle cx="188" cy="252" r="40" fill="#FF92A5" opacity="0.25"/>
+    <path d="M60 280C84 270 196 270 220 280" stroke="#FF92A5" stroke-width="6" stroke-linecap="round" opacity="0.5"/>
+  </g>
+  <text x="50%" y="320" text-anchor="middle" fill="#FFE8EE" font-family="'Segoe UI', 'Inter', sans-serif" font-size="28" font-weight="600">Festivales</text>
+  <defs>
+    <linearGradient id="grad" x1="0" y1="0" x2="280" y2="360" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#65010F"/>
+      <stop offset="0.52" stop-color="#210006"/>
+      <stop offset="1" stop-color="#A10F24"/>
+    </linearGradient>
+  </defs>
+</svg>

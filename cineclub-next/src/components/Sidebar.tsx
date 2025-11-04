@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -23,36 +24,62 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    // Cambiamos el color a un tono piedra (natural)
-    <aside className="w-64 h-screen bg-stone-800 text-white flex flex-col p-4 shadow-lg transition-all duration-300">
-      <div className="text-2xl font-bold mb-8 text-center flex items-center justify-center gap-2">
-        🎬 CineClub
-      </div>
-      <nav className="flex flex-col gap-2">
-        {navLinks.map((link) => {
-          // Usamos startsWith para que /catalogos/generos active /catalogos
-          const isActive = pathname.startsWith(link.href) && (link.href !== '/' || pathname === '/');
+    <aside className="relative flex h-screen w-64 flex-col overflow-hidden border-r border-rose-900/40 bg-gradient-to-b from-black via-[#140006] to-[#2d0010] p-6 text-rose-50 shadow-2xl shadow-rose-900/40">
+      <div className="pointer-events-none absolute inset-0 bg-[url('/images/film-strip.svg')] bg-[length:320px_120px] opacity-[0.15] mix-blend-screen"></div>
 
-          return (
-            <Link
-              key={link.nombre}
-              href={link.href}
-              className={`
-                flex items-center gap-3 p-3 rounded-lg text-lg font-medium 
-                transition-all duration-200 transform
-                ${isActive
-                  // Cambiamos el color activo a esmeralda (verde natural)
-                  ? 'bg-emerald-600 text-white shadow-lg' 
-                  : 'text-gray-300 hover:bg-stone-700 hover:text-white hover:translate-x-2'
-                }
-              `}
-            >
-              {link.icon}
-              <span>{link.nombre}</span>
-            </Link>
-          );
-        })}
-      </nav>
+      <div className="relative z-10 flex flex-col gap-8">
+        <div className="flex flex-col items-center gap-4 text-center">
+          <div className="relative">
+            <div className="absolute inset-0 -translate-y-1 animate-spotlight rounded-full bg-rose-500/30 blur-2xl"></div>
+            <Image
+              src="/images/cinema-emblem.svg"
+              alt="Emblema CineClub"
+              width={64}
+              height={64}
+              className="relative z-10 drop-shadow-[0_0_20px_rgba(255,100,140,0.55)]"
+            />
+          </div>
+          <div>
+            <p className="text-xl font-semibold tracking-wider">CineClub</p>
+            <p className="text-sm font-medium uppercase tracking-[0.35em] text-rose-200/70">Edición Premier</p>
+          </div>
+        </div>
+
+        <nav className="flex flex-col gap-2">
+          {navLinks.map((link) => {
+            const isActive = pathname.startsWith(link.href) && (link.href !== '/' || pathname === '/');
+
+            return (
+              <Link
+                key={link.nombre}
+                href={link.href}
+                className={`group relative flex items-center gap-3 rounded-xl px-4 py-3 text-base font-semibold tracking-wide transition-all duration-300 ${
+                  isActive
+                    ? 'translate-x-1 bg-gradient-to-r from-rose-600/70 via-rose-500/60 to-red-600/60 text-rose-50 shadow-cinema'
+                    : 'text-rose-200/70 hover:translate-x-2 hover:bg-white/5 hover:text-rose-50'
+                }`}
+              >
+                <span
+                  className={`absolute inset-y-1 left-1 w-1 rounded-full bg-rose-400/80 transition-all duration-300 ${
+                    isActive ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0 group-hover:scale-y-100 group-hover:opacity-70'
+                  }`}
+                ></span>
+                <span className="relative z-10 text-rose-100 drop-shadow-[0_0_12px_rgba(255,92,132,0.35)]">
+                  {link.icon}
+                </span>
+                <span className="relative z-10">{link.nombre}</span>
+              </Link>
+            );
+          })}
+        </nav>
+
+        <div className="mt-auto rounded-2xl border border-rose-900/40 bg-white/5 p-4 text-sm text-rose-100/80 backdrop-blur">
+          <p className="font-semibold uppercase tracking-[0.3em] text-rose-200">Función Especial</p>
+          <p className="mt-2 text-xs leading-relaxed text-rose-100/70">
+            Vive la magia del séptimo arte con estrenos exclusivos y la mejor experiencia visual.
+          </p>
+        </div>
+      </div>
     </aside>
   );
 }

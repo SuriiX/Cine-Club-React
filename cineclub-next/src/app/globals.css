@@ -1,8 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #080204;
+  --background-gradient: radial-gradient(circle at 20% 20%, rgba(80, 0, 12, 0.85), transparent 55%),
+    radial-gradient(circle at 80% 10%, rgba(120, 0, 24, 0.65), transparent 45%),
+    radial-gradient(circle at 50% 80%, rgba(160, 0, 40, 0.55), transparent 60%),
+    #050103;
+  --foreground: #f8e9ec;
 }
 
 @theme inline {
@@ -14,312 +18,468 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #050103;
+    --background-gradient: radial-gradient(circle at 15% 15%, rgba(120, 0, 32, 0.85), transparent 55%),
+      radial-gradient(circle at 80% 0%, rgba(220, 48, 96, 0.55), transparent 50%),
+      radial-gradient(circle at 50% 90%, rgba(180, 24, 72, 0.45), transparent 60%),
+      #040002;
+    --foreground: #ffe9ef;
   }
 }
 
 body {
-  background: var(--background);
+  background: var(--background-gradient);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
 }
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url('/images/film-strip.svg');
+  background-size: 600px 160px;
+  background-repeat: repeat;
+  opacity: 0.08;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  animation: filmScroll 24s linear infinite;
+}
+
 @layer utilities {
   .animate-fade-in {
     animation: fadeIn 1s ease-in-out;
   }
+
+  .animate-spotlight {
+    animation: spotlight 6s ease-in-out infinite;
+  }
+
+  .animate-pop {
+    animation: pop 0.8s ease-out both;
+  }
+
+  .animate-marquee {
+    animation: marquee 18s linear infinite;
+  }
+
+  .shadow-cinema {
+    box-shadow: 0 20px 60px rgba(255, 80, 120, 0.25), 0 0 30px rgba(255, 120, 160, 0.25);
+  }
+
+  .border-neon {
+    box-shadow: 0 0 20px rgba(255, 80, 140, 0.45) inset, 0 0 32px rgba(255, 80, 140, 0.32);
+  }
+
+  .bg-cinema-grid {
+    background-image: linear-gradient(rgba(255, 82, 119, 0.12) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 82, 119, 0.12) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes spotlight {
+    0% {
+      filter: drop-shadow(0 0 18px rgba(255, 128, 160, 0.3));
+    }
+    45% {
+      filter: drop-shadow(0 0 38px rgba(255, 196, 212, 0.45));
+    }
+    100% {
+      filter: drop-shadow(0 0 18px rgba(255, 128, 160, 0.3));
+    }
+  }
+
+  @keyframes pop {
+    0% {
+      opacity: 0;
+      transform: scale(0.86) translateY(30px);
+    }
+    60% {
+      opacity: 1;
+      transform: scale(1.03) translateY(-6px);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  @keyframes marquee {
+    0% {
+      background-position-x: 0;
+    }
+    100% {
+      background-position-x: -600px;
+    }
+  }
+
+  @keyframes filmScroll {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: -600px 0;
+    }
   }
 }
-.mf-button {
-  position: absolute;
-  bottom: 20px;
-  right: 24px;
-  font-family: 'Georgia', serif; /* Una fuente elegante */
-  font-size: 1.5rem; /* 24px */
-  font-weight: 700;
-  color: white;
-  opacity: 0.7;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-  transition: all 0.3s ease;
-  animation: subtle-pulse 3s infinite ease-in-out;
+
+.mf-sigil {
+  position: fixed;
+  bottom: 1.75rem;
+  right: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 9999px;
+  font-family: 'Cinzel', 'Georgia', serif;
+  font-size: 1.05rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #ffe9ef;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255, 160, 200, 0.28), transparent 60%),
+    rgba(28, 0, 12, 0.86);
+  border: 1px solid rgba(255, 110, 150, 0.4);
+  box-shadow: 0 10px 24px rgba(255, 70, 140, 0.25);
+  text-shadow: 0 0 8px rgba(255, 196, 220, 0.65);
+  opacity: 0.55;
+  backdrop-filter: blur(4px);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, opacity 0.35s ease;
 }
 
-.mf-button:hover {
+.mf-sigil:hover {
+  transform: translateY(-4px) scale(1.08);
   opacity: 1;
-  transform: scale(1.1);
-  text-shadow: 0 0 20px rgba(255, 255, 255, 1);
-  cursor: pointer;
+  box-shadow: 0 16px 38px rgba(255, 120, 180, 0.35);
 }
 
-@keyframes subtle-pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
+@media (max-width: 768px) {
+  .mf-sigil {
+    width: 2.75rem;
+    height: 2.75rem;
+    font-size: 0.95rem;
+    bottom: 1.25rem;
+    right: 1.25rem;
+    opacity: 0.6;
+  }
 }
 
-
-/* --- Estilos para los Girasoles --- */
-.sunflower {
+.sorpresa-stage {
   position: relative;
-  width: 20px; /* Ancho del tallo */
-  height: 300px;
-  margin: 0 20px;
-  animation: grow 2s ease-out forwards;
-  transform-origin: bottom center;
-  transform: scaleY(0); /* Empieza sin altura */
+  min-height: 100vh;
+  padding: 6rem 1.5rem 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 194, 209, 0.3), transparent 55%),
+    radial-gradient(circle at 80% 25%, rgba(255, 155, 186, 0.22), transparent 60%),
+    linear-gradient(140deg, #fff1f8 0%, #ffe2f1 45%, #ffd2e9 100%);
 }
 
-.stem {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to right, #228B22, #32CD32); /* Verde tallo */
-  border-radius: 10px 10px 0 0;
-}
-
-.leaf {
+.sorpresa-stage::before,
+.sorpresa-stage::after {
+  content: '';
   position: absolute;
-  width: 60px;
-  height: 40px;
-  background-color: #32CD32;
-  border-radius: 5px 40px 5px 40px;
-  animation: wave 2s infinite alternate ease-in-out;
+  inset: 0;
+  pointer-events: none;
 }
 
-.leaf-1 {
-  bottom: 100px;
-  left: -40px;
-  transform: rotate(-30deg);
-  animation-delay: 1s;
+.sorpresa-stage::before {
+  background: radial-gradient(circle at bottom, rgba(255, 118, 151, 0.35), transparent 55%);
 }
 
-.leaf-2 {
-  bottom: 150px;
-  right: -40px;
-  transform: rotate(210deg);
-  animation-delay: 1.5s;
+.sorpresa-stage::after {
+  background-image: url('/images/film-strip.svg');
+  background-size: 420px 160px;
+  background-repeat: repeat;
+  opacity: 0.07;
+  mix-blend-mode: screen;
+  animation: filmScroll 28s linear infinite;
 }
 
-.flower-head {
-  position: absolute;
-  top: -60px; /* Posiciona la cabeza sobre el tallo */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 120px;
-  height: 120px;
-  animation: bloom 1.5s 1s ease-out forwards;
-  opacity: 0;
-}
-
-.sunflower-center {
-  position: absolute;
-  width: 60px;
-  height: 60px;
-  background-color: #583c00; /* Marrón oscuro */
-  border-radius: 50%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
-}
-
-.petal {
-  position: absolute;
-  width: 40px;
-  height: 60px;
-  background-color: #FFD700; /* Amarillo girasol */
-  border-radius: 20px 20px 0 0;
-  top: 50%;
-  left: 50%;
-  transform-origin: bottom center;
-  margin-left: -20px; /* Mitad del ancho */
-  margin-top: -30px; /* Mitad de la altura (para centrarlo) */
-  z-index: 1;
-  /* Aplicamos la rotación desde el JS */
-}
-
-/* --- Animaciones de Flores --- */
-@keyframes grow {
-  from { transform: scaleY(0); }
-  to { transform: scaleY(1); }
-}
-
-@keyframes bloom {
-  from { opacity: 0; transform: scale(0.5) rotate(-45deg); }
-  to { opacity: 1; transform: scale(1) rotate(0deg); }
-}
-
-@keyframes wave {
-  from { transform: rotate(-30deg) skewX(-10deg); }
-  to { transform: rotate(-20deg) skewX(10deg); }
-}
-/* --- Estilos para los Tulipanes --- */
-.tulip {
+.sorpresa-pedestal {
   position: relative;
-  width: 15px; /* Tallo más delgado */
-  height: 300px;
-  margin: 0 25px;
-  animation: grow 2s ease-out forwards;
-  transform-origin: bottom center;
-  transform: scaleY(0); /* Empieza sin altura */
-}
-
-.tulip .stem {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to right, #2a9d8f, #43b3a4); /* Verde tallo */
-  border-radius: 10px 10px 0 0;
-}
-
-.tulip .leaf {
-  position: absolute;
-  width: 30px;
-  height: 100px;
-  background-color: #2a9d8f;
-  border-radius: 5px 40px 5px 40px;
-  animation: wave-leaf 3s infinite alternate ease-in-out;
-}
-
-.tulip .leaf-1 {
-  bottom: 80px;
-  left: -20px;
-  transform: rotate(-20deg);
-  animation-delay: 1s;
-}
-
-.tulip .leaf-2 {
-  bottom: 120px;
-  right: -20px;
-  transform: rotate(190deg);
-  animation-delay: 1.5s;
-}
-
-.tulip .flower-cup {
-  position: absolute;
-  top: -25px; /* Posiciona la flor */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 100px;
-  animation: bloom-tulip 1.5s 1s ease-out forwards;
-  opacity: 0;
-}
-
-/* Los 3 pétalos que forman el tulipán */
-.tulip .petal-1,
-.tulip .petal-2,
-.tulip .petal-3 {
-  position: absolute;
-  width: 40px;
-  height: 100px;
-  /* La forma clave del pétalo de tulipán */
-  border-radius: 40px 40px 10px 10px; 
-  box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
-}
-
-.tulip .petal-1 {
-  /* Pétalo central */
-  left: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: clamp(320px, 40vw, 420px);
+  width: clamp(220px, 32vw, 320px);
+  padding-bottom: 4rem;
   z-index: 2;
 }
-.tulip .petal-2 {
-  /* Pétalo izquierdo */
-  left: 0;
-  transform: rotate(-25deg);
-  transform-origin: bottom center;
-  z-index: 1;
-}
-.tulip .petal-3 {
-  /* Pétalo derecho */
-  right: 0;
-  transform: rotate(25deg);
-  transform-origin: bottom center;
-  z-index: 1;
+
+.sorpresa-pedestal::after {
+  content: '';
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  width: 160%;
+  height: 32px;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(255, 120, 160, 0.3), transparent 70%);
+  filter: blur(18px);
+  z-index: -1;
 }
 
-
-/* --- Estilos para los Corazones Flotantes --- */
 .heart-container {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   overflow: hidden;
-  z-index: 0; /* Detrás de las flores y el texto */
+  pointer-events: none;
+  z-index: 1;
 }
 
 .heart {
   position: absolute;
-  bottom: -50px; /* Empieza fuera de la pantalla */
-  width: 20px;
-  height: 20px;
-  background-color: #f72585; /* Color fucsia */
+  bottom: -18vh;
+  width: 26px;
+  height: 26px;
+  background: linear-gradient(135deg, #ff6fa4 0%, #ffd6ec 100%);
+  transform: rotate(-45deg);
+  transform-origin: center;
+  border-radius: 8px 0 8px 8px;
+  filter: drop-shadow(0 8px 14px rgba(255, 120, 170, 0.35));
+  animation: heartFloat var(--duration, 7s) ease-in infinite;
+  animation-delay: var(--delay, 0s);
   opacity: 0;
-  animation-name: float-up;
-  animation-timing-function: ease-in;
-  animation-iteration-count: infinite;
 }
 
-/* El truco de CSS para formar un corazón con pseudo-elementos */
 .heart::before,
 .heart::after {
   content: '';
   position: absolute;
-  width: 20px;
-  height: 20px;
-  background-color: #f72585;
+  width: 100%;
+  height: 100%;
+  background: inherit;
   border-radius: 50%;
 }
 
 .heart::before {
-  top: -10px;
+  top: -50%;
   left: 0;
 }
 
 .heart::after {
+  left: 50%;
   top: 0;
-  left: 10px;
 }
 
-/* --- Animaciones de Flores y Corazones --- */
-
-/* Animación de crecimiento (igual que antes) */
-@keyframes grow {
-  from { transform: scaleY(0); }
-  to { transform: scaleY(1); }
-}
-
-/* Animación de florecimiento (un poco más sutil) */
-@keyframes bloom-tulip {
-  from { opacity: 0; transform: translateX(-50%) scale(0.8); }
-  to { opacity: 1; transform: translateX(-50%) scale(1); }
-}
-
-/* Animación de hoja (más suave) */
-@keyframes wave-leaf {
-  from { transform: rotate(-20deg); }
-  to { transform: rotate(-10deg); }
-}
-
-/* Animación de corazones flotando */
-@keyframes float-up {
+@keyframes heartFloat {
   0% {
     opacity: 0;
-    transform: translateY(0) rotate(0);
+    transform: translate3d(0, 0, 0) scale(calc(var(--scale, 1) * 0.7)) rotate(-45deg);
   }
-  10% {
-    opacity: 0.7;
+  12% {
+    opacity: 0.85;
   }
-  90% {
-    opacity: 0.7;
+  55% {
+    opacity: 0.95;
+    transform: translate3d(calc(var(--drift, 18px) * 0.55), -60vh, 0) scale(calc(var(--scale, 1) * 1.05)) rotate(-45deg);
   }
   100% {
     opacity: 0;
-    /* Mueve el corazón 100vh (toda la altura) hacia arriba y lo rota */
-    transform: translateY(-100vh) rotate(360deg);
+    transform: translate3d(var(--drift, 18px), -120vh, 0) scale(calc(var(--scale, 1) * 1.12)) rotate(-45deg);
+  }
+}
+
+.tulip {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 140px;
+  height: 240px;
+  transform-origin: bottom center;
+  animation: tulipSway 5.5s ease-in-out infinite alternate;
+}
+
+.stem {
+  position: absolute;
+  bottom: 0;
+  width: 10px;
+  height: 70%;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #4dbb7a 0%, #2d8f54 90%);
+  box-shadow: inset 0 0 6px rgba(0, 60, 32, 0.25);
+}
+
+.leaf {
+  position: absolute;
+  bottom: 28%;
+  width: 76px;
+  height: 90px;
+  background: linear-gradient(135deg, #58c487 0%, #2f8a59 80%);
+  border-radius: 60% 40% 60% 40%;
+  box-shadow: inset 0 0 12px rgba(0, 40, 24, 0.25);
+  opacity: 0;
+}
+
+.leaf-1 {
+  left: -34px;
+  transform: rotate(18deg);
+  animation: leafRevealLeft 1.6s ease forwards;
+  animation-delay: 0.45s;
+}
+
+.leaf-2 {
+  right: -34px;
+  transform: scaleX(-1) rotate(18deg);
+  animation: leafRevealRight 1.6s ease forwards;
+  animation-delay: 0.55s;
+}
+
+.flower-cup {
+  position: absolute;
+  bottom: 66%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 160px;
+  height: 150px;
+  filter: drop-shadow(0 18px 26px rgba(247, 114, 167, 0.25));
+  transform-origin: bottom center;
+  opacity: 0;
+  animation: bloom 1.9s ease forwards;
+  animation-delay: 0.6s;
+}
+
+.flower-cup div {
+  flex: 1;
+  height: 100%;
+  border-radius: 70% 70% 40% 40%;
+  margin: 0 2px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.18), transparent 45%),
+    var(--petal-color, #f72585);
+  background-blend-mode: screen;
+  position: relative;
+}
+
+.petal-1 {
+  transform: translateY(8px) scaleX(0.82);
+  filter: brightness(0.94);
+}
+
+.petal-2 {
+  transform: translateY(-6px);
+}
+
+.petal-3 {
+  transform: translateY(8px) scaleX(0.82);
+  filter: brightness(1.08);
+}
+
+.sorpresa-message {
+  position: relative;
+  z-index: 2;
+  margin-top: 3rem;
+  padding: 2.5rem 2.75rem;
+  max-width: 32rem;
+  border-radius: 28px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.32), rgba(255, 214, 228, 0.45)),
+    rgba(255, 255, 255, 0.45);
+  box-shadow: 0 18px 45px rgba(255, 150, 190, 0.25);
+  backdrop-filter: blur(12px);
+  text-align: center;
+}
+
+.sorpresa-message p {
+  font-family: 'Playfair Display', 'Times New Roman', serif;
+  font-size: clamp(1.6rem, 2vw + 1rem, 2.4rem);
+  color: #6a1f3b;
+  line-height: 1.45;
+  text-shadow: 0 8px 18px rgba(255, 215, 227, 0.6);
+}
+
+.sorpresa-message span {
+  display: block;
+  margin-top: 1.25rem;
+  font-size: 1rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(106, 31, 59, 0.65);
+}
+
+@keyframes tulipSway {
+  0% {
+    transform: rotate(-2deg) scale(0.96);
+  }
+  50% {
+    transform: rotate(2deg) scale(1);
+  }
+  100% {
+    transform: rotate(-1.5deg) scale(0.98);
+  }
+}
+
+@keyframes bloom {
+  0% {
+    transform: translateY(60px) scaleY(0.4) scaleX(0.6);
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) scaleY(1) scaleX(1);
+    opacity: 1;
+  }
+}
+
+@keyframes leafRevealLeft {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.65) rotate(6deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(18deg);
+  }
+}
+
+@keyframes leafRevealRight {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.65) scaleX(-1) rotate(6deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) scaleX(-1) rotate(18deg);
+  }
+}
+
+@media (max-width: 640px) {
+  .sorpresa-stage {
+    padding: 4.5rem 1.25rem 4rem;
+  }
+
+  .sorpresa-pedestal {
+    width: 220px;
+    height: 320px;
+  }
+
+  .sorpresa-message {
+    padding: 2rem;
   }
 }
