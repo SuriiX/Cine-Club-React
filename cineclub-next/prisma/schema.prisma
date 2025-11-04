@@ -1,6 +1,7 @@
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = env("DATABASE_PROVIDER") 
+
+  url      = env("DATABASE_URL")
 }
 
 // 2. Configura el Generador de Cliente
