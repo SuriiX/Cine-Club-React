@@ -31,7 +31,7 @@ export default function RootLayout({
           <Link
             href="/sorpresa"
             className="mf-button"
-            aria-label="Momentos Felices"
+            aria-label="Momentos Valiosos"
           >
             MF
           </Link>

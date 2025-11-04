@@ -145,19 +145,22 @@ export default function HomePage() {
       {/* --- Sección 2: Acceso Rápido (CORREGIDA) --- */}
       <section className="space-y-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
         
-        {/* DIV DUPLICADO ELIMINADO */}
-
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div className="space-y-2">
             <h2 className="text-3xl font-semibold text-rose-50">Acceso rápido</h2>
             <p className="text-sm text-rose-100/70">Gestiona cada área clave con un par de clics y efectos que deslumbran.</p>
           </div>
+          
+          {/* --- BOTÓN CORREGIDO --- */}
           <Link
             href="/sorpresa"
-            className="inline-flex items-center gap-2 rounded-full border border-rose-400/50 px-4 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-rose-200/80 transition-all duration-300 hover:border-rose-200 hover:text-rose-50"
+            className="inline-flex items-center gap-3 rounded-full border border-rose-400/50 px-5 py-2 text-sm font-semibold tracking-widest text-rose-200/80 transition-all duration-300 hover:border-rose-200 hover:text-rose-50 hover:shadow-cinema"
           >
-            Ir a la función secreta
+            <span>❤️</span>
+            <span>MF</span>
           </Link>
+          {/* --- FIN BOTÓN CORREGIDO --- */}
+
         </div>
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {quickLinks.map((item) => (

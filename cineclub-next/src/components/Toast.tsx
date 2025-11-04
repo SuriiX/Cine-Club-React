@@ -17,8 +17,8 @@ export default function Toast({ message, type, onClose }: ToastProps) {
     return () => clearTimeout(timer);
   }, [onClose]);
 
-  // Cambiamos el color de éxito al nuevo tono esmeralda
-  const bgColor = type === 'success' ? 'bg-emerald-600' : 'bg-red-600';
+  // Cambiamos el color de éxito al nuevo tono rosado/rojo
+  const bgColor = type === 'success' ? 'bg-rose-600' : 'bg-red-600';
 
   return (
     <div className={`fixed bottom-5 right-5 p-4 rounded-lg text-white shadow-xl ${bgColor} animate-fade-in z-50`}>

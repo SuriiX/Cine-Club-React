@@ -1,6 +1,6 @@
 'use client'; 
 
-import { useState, useEffect, useMemo } from 'react'; // Importamos useMemo
+import { useState, useEffect, useMemo } from 'react';
 import Toast from '@/components/Toast';
 
 // --- Definición de Tipos ---
@@ -30,11 +30,8 @@ export default function PeliculasPage() {
   const [directorId, setDirectorId] = useState('');
   const [empleadoId, setEmpleadoId] = useState('');
 
-  // Estado para controlar edición
   const [codigoActual, setCodigoActual] = useState<number | null>(null);
-  // Estado para manejar el Toast
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
-  // ¡NUEVO! Estado para la búsqueda
   const [searchQuery, setSearchQuery] = useState('');
 
   // --- Cargar datos ---
@@ -109,7 +106,7 @@ export default function PeliculasPage() {
     } catch (error) { setToast({ message: 'Hubo un error al eliminar.', type: 'error' }); }
   };
 
-  // ¡NUEVO! Lógica de filtrado para la búsqueda
+  // Lógica de filtrado
   const peliculasFiltradas = useMemo(() => {
     return listaPeliculas.filter(peli =>
       peli.Nombre?.toLowerCase().includes(searchQuery.toLowerCase())
@@ -117,35 +114,36 @@ export default function PeliculasPage() {
   }, [listaPeliculas, searchQuery]);
 
   return (
-    <main className="container mx-auto">
+    <main>
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
-      <div className="bg-white shadow-md rounded-lg p-6">
-        <h1 className="text-3xl font-bold text-center text-emerald-800 mb-6">
+      
+      {/* --- FORMULARIO --- */}
+      <div className="form-container">
+        <h1 className="form-title">
           Gestión de Películas
         </h1>
         
-        {/* --- FORMULARIO --- */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
           <div>
-            <label htmlFor="txtNombre" className="block text-sm font-medium text-gray-700">Nombre:</label>
-            <input type="text" id="txtNombre" value={nombre} onChange={(e) => setNombre(e.target.value)} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
+            <label htmlFor="txtNombre" className="form-label">Nombre:</label>
+            <input type="text" id="txtNombre" value={nombre} onChange={(e) => setNombre(e.target.value)} className="form-input" />
           </div>
           <div>
-            <label htmlFor="txtFechaEstreno" className="block text-sm font-medium text-gray-700">Fecha de Estreno:</label>
-            <input type="date" id="txtFechaEstreno" value={fechaEstreno} onChange={(e) => setFechaEstreno(e.target.value)} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
+            <label htmlFor="txtFechaEstreno" className="form-label">Fecha de Estreno:</label>
+            <input type="date" id="txtFechaEstreno" value={fechaEstreno} onChange={(e) => setFechaEstreno(e.target.value)} className="form-input" />
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
           <div>
-            <label htmlFor="cboProductora" className="block text-sm font-medium text-gray-700">Productora:</label>
-            <select id="cboProductora" value={productoraId} onChange={(e) => setProductoraId(e.target.value)} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm">
+            <label htmlFor="cboProductora" className="form-label">Productora:</label>
+            <select id="cboProductora" value={productoraId} onChange={(e) => setProductoraId(e.target.value)} className="form-select">
               <option value="">-- Seleccione --</option>
               {productoras.map((prod) => (<option key={prod.Codigo} value={prod.Codigo}>{prod.Nombre}</option>))}
             </select>
           </div>
           <div>
-            <label htmlFor="cboPais" className="block text-sm font-medium text-gray-700">País (Nacionalidad):</label>
-            <select id="cboPais" value={paisId} onChange={(e) => setPaisId(e.target.value)} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm">
+            <label htmlFor="cboPais" className="form-label">País (Nacionalidad):</label>
+            <select id="cboPais" value={paisId} onChange={(e) => setPaisId(e.target.value)} className="form-select">
               <option value="">-- Seleccione --</option>
               {paises.map((pais) => (<option key={pais.Codigo} value={pais.Codigo}>{pais.Nombre}</option>))}
             </select>
@@ -153,82 +151,82 @@ export default function PeliculasPage() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
           <div>
-            <label htmlFor="cboDirector" className="block text-sm font-medium text-gray-700">Director:</label>
-            <select id="cboDirector" value={directorId} onChange={(e) => setDirectorId(e.target.value)} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm">
+            <label htmlFor="cboDirector" className="form-label">Director:</label>
+            <select id="cboDirector" value={directorId} onChange={(e) => setDirectorId(e.target.value)} className="form-select">
               <option value="">-- Seleccione --</option>
               {directores.map((dir) => (<option key={dir.Codigo} value={dir.Codigo}>{dir.Nombre}</option>))}
             </select>
           </div>
           <div>
-            <label htmlFor="cboEmpleado" className="block text-sm font-medium text-gray-700">Empleado (Registró):</label>
-            <select id="cboEmpleado" value={empleadoId} onChange={(e) => setEmpleadoId(e.target.value)} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm">
+            <label htmlFor="cboEmpleado" className="form-label">Empleado (Registró):</label>
+            <select id="cboEmpleado" value={empleadoId} onChange={(e) => setEmpleadoId(e.target.value)} className="form-select">
               <option value="">-- Seleccione --</option>
               {empleados.map((emp) => (<option key={emp.Codigo} value={emp.Codigo}>{emp.Nombre}</option>))}
             </select>
           </div>
         </div>
 
-        {/* --- BOTONES (Con nuevos colores y sin "Buscar") --- */}
-        <div className="flex justify-around items-center pt-6 border-t mt-6">
+        {/* --- BOTONES --- */}
+        <div className="form-button-container">
           {codigoActual === null ? (
-            <button onClick={handleAgregar} className="px-6 py-2 bg-emerald-600 text-white font-semibold rounded-lg shadow-md hover:bg-emerald-700">
+            <button onClick={handleAgregar} className="form-button form-button-add">
               Agregar
             </button>
           ) : (
-            <button onClick={handleModificar} className="px-6 py-2 bg-yellow-600 text-white font-semibold rounded-lg shadow-md hover:bg-yellow-700">
+            <button onClick={handleModificar} className="form-button form-button-edit">
               Modificar
             </button>
           )}
           {codigoActual !== null && (
-            <button onClick={limpiarFormulario} className="px-6 py-2 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700">
+            <button onClick={limpiarFormulario} className="form-button form-button-cancel">
               Cancelar
             </button>
           )}
         </div>
+      </div>
 
-        {/* --- TABLA DE DATOS (Con Búsqueda y nuevos estilos) --- */}
-        <div className="mt-8 overflow-x-auto">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl font-semibold text-gray-800">Lista de Películas</h2>
-            {/* ¡NUEVO! Campo de Búsqueda */}
-            <input
-              type="text"
-              placeholder="Buscar por Nombre..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="px-3 py-2 border border-gray-300 rounded-md shadow-sm w-1/3"
-            />
-          </div>
-          <table className="min-w-full bg-white">
-            <thead className="bg-stone-100 text-gray-700 uppercase text-sm">
+      {/* --- TABLA DE DATOS --- */}
+      <div className="table-section-container">
+        <div className="table-header-container">
+          <h2 className="table-title">Lista de Películas</h2>
+          <input
+            type="text"
+            placeholder="Buscar por Nombre..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="table-search-input"
+          />
+        </div>
+        <div className="table-wrapper">
+          <table className="table-element">
+            <thead className="table-head">
               <tr>
-                <th className="px-6 py-3 text-center font-medium">Acciones</th>
-                <th className="px-6 py-3 text-left font-medium">Código</th>
-                <th className="px-6 py-3 text-left font-medium">Nombre</th>
-                <th className="px-6 py-3 text-left font-medium">Fecha Estreno</th>
-                <th className="px-6 py-3 text-left font-medium">Productora</th>
-                <th className="px-6 py-3 text-left font-medium">País</th>
-                <th className="px-6 py-3 text-left font-medium">Director</th>
-                <th className="px-6 py-3 text-left font-medium">Empleado</th>
+                <th className="table-head-cell text-center">Acciones</th>
+                <th className="table-head-cell text-left">Código</th>
+                <th className="table-head-cell text-left">Nombre</th>
+                <th className="table-head-cell text-left">Fecha Estreno</th>
+                <th className="table-head-cell text-left">Productora</th>
+                <th className="table-head-cell text-left">País</th>
+                <th className="table-head-cell text-left">Director</th>
+                <th className="table-head-cell text-left">Empleado</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
-              {/* ¡CAMBIO! Mapeamos la lista filtrada */}
+            <tbody className="table-body">
               {peliculasFiltradas.map((pelicula) => (
-                <tr key={pelicula.Codigo} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap text-center">
-                    <div className="flex justify-center gap-2">
-                      <button onClick={() => handleCargarParaEditar(pelicula)} className="text-yellow-600 hover:text-yellow-800" title="Editar">✏️</button>
-                      <button onClick={() => handleDelete(pelicula.Codigo)} className="text-red-600 hover:text-red-800" title="Eliminar">🗑️</button>
+                <tr key={pelicula.Codigo} className="table-body-row">
+                  <td className="table-body-cell">
+                    <div className="flex justify-center gap-4">
+                      <button onClick={() => handleCargarParaEditar(pelicula)} className="table-action-button table-action-edit" title="Editar">✏️</button>
+                      <button onClick={() => handleDelete(pelicula.Codigo)} className="table-action-button table-action-delete" title="Eliminar">🗑️</button>
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-800">{pelicula.Codigo}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-800">{pelicula.Nombre}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-800">{pelicula.Fecha_Estreno ? new Date(pelicula.Fecha_Estreno).toLocaleDateString() : ''}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-800">{pelicula.Productora?.Nombre}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-800">{pelicula.Pais?.Nombre}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-800">{pelicula.Director?.Nombre}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-800">{pelicula.Empleado?.Nombre}</td>
+                  <td className="table-body-cell">{pelicula.Codigo}</td>
+                  <td className="table-body-cell">{pelicula.Nombre}</td>
+                  <td className="table-body-cell">{pelicula.Fecha_Estreno ? new Date(pelicula.Fecha_Estreno).toLocaleDateString() : ''}</td>
+                  <td className="table-body-cell">{pelicula.Productora?.Nombre}</td>
+                  <td className="table-body-cell">{pelicula.Pais?.Nombre}</td>
+                  <td className="table-body-cell">{pelicula.Director?.Nombre}</td>
+                  <td className="table-body-cell">{pelicula.Empleado?.Nombre}</td>
                 </tr>
               ))}
             </tbody>

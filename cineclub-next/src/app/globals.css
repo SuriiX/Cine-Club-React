@@ -49,93 +49,96 @@ body::before {
   animation: filmScroll 24s linear infinite;
 }
 
-@layer utilities {
-  .animate-fade-in {
-    animation: fadeIn 1s ease-in-out;
-  }
+/* --- SE ELIMINÓ EL @layer utilities DE AQUÍ --- */
 
-  .animate-spotlight {
-    animation: spotlight 6s ease-in-out infinite;
-  }
+.animate-fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
 
-  .animate-pop {
-    animation: pop 0.8s ease-out both;
-  }
+.animate-spotlight {
+  animation: spotlight 6s ease-in-out infinite;
+}
 
-  .animate-marquee {
-    animation: marquee 18s linear infinite;
-  }
+.animate-pop {
+  animation: pop 0.8s ease-out both;
+}
 
-  .shadow-cinema {
-    box-shadow: 0 20px 60px rgba(255, 80, 120, 0.25), 0 0 30px rgba(255, 120, 160, 0.25);
-  }
+.animate-marquee {
+  animation: marquee 18s linear infinite;
+}
 
-  .border-neon {
-    box-shadow: 0 0 20px rgba(255, 80, 140, 0.45) inset, 0 0 32px rgba(255, 80, 140, 0.32);
-  }
+.shadow-cinema {
+  box-shadow: 0 20px 60px rgba(255, 80, 120, 0.25), 0 0 30px rgba(255, 120, 160, 0.25);
+}
 
-  .bg-cinema-grid {
-    background-image: linear-gradient(rgba(255, 82, 119, 0.12) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 82, 119, 0.12) 1px, transparent 1px);
-    background-size: 40px 40px;
-  }
+.border-neon {
+  box-shadow: 0 0 20px rgba(255, 80, 140, 0.45) inset, 0 0 32px rgba(255, 80, 140, 0.32);
+}
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+.bg-cinema-grid {
+  background-image: linear-gradient(rgba(255, 82, 119, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 82, 119, 0.12) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
 
-  @keyframes spotlight {
-    0% {
-      filter: drop-shadow(0 0 18px rgba(255, 128, 160, 0.3));
-    }
-    45% {
-      filter: drop-shadow(0 0 38px rgba(255, 196, 212, 0.45));
-    }
-    100% {
-      filter: drop-shadow(0 0 18px rgba(255, 128, 160, 0.3));
-    }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-
-  @keyframes pop {
-    0% {
-      opacity: 0;
-      transform: scale(0.86) translateY(30px);
-    }
-    60% {
-      opacity: 1;
-      transform: scale(1.03) translateY(-6px);
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1) translateY(0);
-    }
-  }
-
-  @keyframes marquee {
-    0% {
-      background-position-x: 0;
-    }
-    100% {
-      background-position-x: -600px;
-    }
-  }
-
-  @keyframes filmScroll {
-    0% {
-      background-position: 0 0;
-    }
-    100% {
-      background-position: -600px 0;
-    }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
+
+@keyframes spotlight {
+  0% {
+    filter: drop-shadow(0 0 18px rgba(255, 128, 160, 0.3));
+  }
+  45% {
+    filter: drop-shadow(0 0 38px rgba(255, 196, 212, 0.45));
+  }
+  100% {
+    filter: drop-shadow(0 0 18px rgba(255, 128, 160, 0.3));
+  }
+}
+
+@keyframes pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.86) translateY(30px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.03) translateY(-6px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes marquee {
+  0% {
+    background-position-x: 0;
+  }
+  100% {
+    background-position-x: -600px;
+  }
+}
+
+@keyframes filmScroll {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -600px 0;
+  }
+}
+
+/* --- Y SE ELIMINÓ EL CIERRE '}' DE AQUÍ --- */
+
 
 .mf-button {
   position: absolute;
@@ -156,6 +159,7 @@ body::before {
   box-shadow: 0 0 30px rgba(255, 80, 120, 0.4), inset 0 0 12px rgba(255, 164, 188, 0.5);
   transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
   animation: neonPulse 2.6s ease-in-out infinite;
+  z-index: 50;
 }
 
 .mf-button:hover {
@@ -176,7 +180,7 @@ body::before {
 }
 
 
-/* --- INICIO: ESTILOS AGREGADOS PARA /sorpresa --- */
+/* --- INICIO: ESTILOS /sorpresa --- */
 
 .sorpresa-stage {
   display: flex;
@@ -192,8 +196,12 @@ body::before {
 .sorpresa-pedestal {
   position: relative;
   z-index: 10;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
   transform: translateY(20%);
-  animation: grow 2s ease-out forwards;
+  animation: grow 2s ease-out 0.2s forwards;
+  /* El pedestal completo crece */
 }
 
 .sorpresa-message {
@@ -267,12 +275,33 @@ body::before {
   left: 10px;
 }
 
+/* --- INICIO: ESTILOS RAMO DE TULIPANES --- */
+.tulip-wrapper {
+  position: relative;
+  transform-origin: bottom center;
+}
+/* Posicionamiento del ramo */
+.tulip-1 {
+  transform: translateX(20px) rotate(-15deg) scale(0.95);
+  z-index: 10;
+}
+.tulip-2 {
+  transform: translateY(-20px) scale(1.05); /* El del centro más alto */
+  z-index: 12;
+}
+.tulip-3 {
+  transform: translateX(-20px) rotate(15deg) scale(0.95);
+  z-index: 11;
+}
+
+
 .tulip {
   position: relative;
   width: 15px;
   height: 300px;
-  margin: 0 25px;
   transform-origin: bottom center;
+  animation: grow-tulip 2s ease-out forwards;
+  transform: scaleY(0); /* Empiezan sin altura */
 }
 
 .tulip .stem {
@@ -284,75 +313,118 @@ body::before {
 
 .tulip .leaf {
   position: absolute;
-  width: 30px;
-  height: 100px;
+  width: 35px;
+  height: 110px;
   background-color: #2a9d8f;
-  border-radius: 5px 40px 5px 40px;
+  border-radius: 5px 50px 5px 50px;
   animation: wave-leaf 3.5s infinite alternate ease-in-out;
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.2);
 }
 
 .tulip .leaf-1 {
   bottom: 80px;
-  left: -20px;
-  transform: rotate(-20deg);
-  animation-delay: 1s;
+  left: -25px;
+  transform: rotate(-25deg);
+  animation-delay: 1.2s;
 }
 
 .tulip .leaf-2 {
   bottom: 120px;
-  right: -20px;
-  transform: rotate(190deg);
-  animation-delay: 1.5s;
+  right: -25px;
+  transform: rotate(200deg);
+  animation-delay: 1.7s;
 }
 
 .tulip .flower-cup {
   position: absolute;
-  top: -25px;
+  top: -30px;
   left: 50%;
-  width: 80px;
-  height: 100px;
+  width: 90px;
+  height: 110px;
   transform-origin: bottom center;
   transform: translateX(-50%) scale(0.8);
   animation: bloom-tulip 1.8s 1s ease-out forwards;
   opacity: 0;
 }
 
-.tulip .petal-1,
-.tulip .petal-2,
-.tulip .petal-3 {
+.tulip .petal {
   position: absolute;
-  width: 40px;
-  height: 100px;
-  background-color: var(--petal-color);
-  border-radius: 40px 40px 10px 10px;
-  box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+  width: 45px;
+  height: 110px;
+  border-radius: 40px 40px 20px 20px;
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.15);
 }
 
-.tulip .petal-1 {
-  left: 20px;
+/* Colores y degradados */
+.petal-back {
+  background: linear-gradient(to top, var(--petal-color-dark), var(--petal-color-mid));
+}
+.petal-front {
+  background: linear-gradient(to top, var(--petal-color-mid), var(--petal-color-light));
+}
+.petal-center {
+  background: linear-gradient(to top, var(--petal-color-light), #fff);
+}
+
+/* Posicionamiento y Z-index */
+.petal-back-1 {
+  left: 10px;
+  transform: rotate(-20deg);
+  z-index: 1;
+}
+.petal-back-2 {
+  right: 10px;
+  transform: rotate(20deg);
+  z-index: 1;
+}
+
+.petal-1 {
+  left: -5px;
+  transform: rotate(-28deg);
   z-index: 2;
 }
-.tulip .petal-2 {
-  left: 0;
-  transform: rotate(-25deg);
-  transform-origin: bottom center;
-  z-index: 1;
+.petal-3 {
+  right: -5px;
+  transform: rotate(28deg);
+  z-index: 2;
 }
-.tulip .petal-3 {
-  right: 0;
-  transform: rotate(25deg);
-  transform-origin: bottom center;
-  z-index: 1;
+
+.petal-center {
+  left: 50%;
+  transform: translateX(-50%) rotate(0deg) scale(0.9);
+  z-index: 3;
+  width: 40px;
+  height: 100px;
+  top: 5px;
 }
+.petal-2 {
+  left: 50%;
+  transform: translateX(-50%) rotate(0deg) scale(0.95);
+  z-index: 4;
+  height: 105px;
+}
+/* --- FIN: ESTILOS RAMO DE TULIPANES --- */
+
 
 @keyframes grow {
   from {
-    transform: translateY(20%) scaleY(0);
+    transform: translateY(20%);
   }
   to {
-    transform: translateY(0) scaleY(1);
+    transform: translateY(0);
   }
 }
+
+/* Animación de crecimiento individual para cada tulipán */
+@keyframes grow-tulip {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
 
 @keyframes bloom-tulip {
   from {
@@ -367,10 +439,10 @@ body::before {
 
 @keyframes wave-leaf {
   from {
-    transform: rotate(-20deg);
+    transform: rotate(-25deg);
   }
   to {
-    transform: rotate(-10deg);
+    transform: rotate(-15deg);
   }
 }
 
@@ -391,3 +463,4 @@ body::before {
   }
 }
 
+/* --- FIN: ESTILOS /sorpresa --- */

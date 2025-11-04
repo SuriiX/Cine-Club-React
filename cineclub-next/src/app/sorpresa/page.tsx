@@ -10,6 +10,7 @@ type HeartData = {
   drift: string;
 };
 
+// Componente de Corazones (sin cambios)
 function FloatingHearts() {
   const hearts = useMemo<HeartData[]>(
     () =>
@@ -46,36 +47,64 @@ function FloatingHearts() {
   );
 }
 
-function Tulip() {
+// --- ¡TULIPÁN MEJORADO! ---
+function Tulip({ color, delay = 0 }: { color: string, delay?: number }) {
+  const style = {
+    '--petal-color-dark': color === 'fucsia' ? '#d40060' : '#ff8fab', // Tono oscuro
+    '--petal-color-mid': color === 'fucsia' ? '#f72585' : '#ffb3c8', // Tono medio
+    '--petal-color-light': color === 'fucsia' ? '#f72585' : '#ffd1dc', // Tono claro
+    'animationDelay': `${delay}s`
+  } as CSSProperties;
+
   return (
-    <div className="tulip">
+    <div className="tulip" style={style}>
       <div className="stem" />
       <div className="leaf leaf-1" />
       <div className="leaf leaf-2" />
       <div className="flower-cup">
-        <div className="petal-1" style={{ '--petal-color': '#ff8fab' } as CSSProperties} />
-        <div className="petal-2" style={{ '--petal-color': '#f72585' } as CSSProperties} />
-        <div className="petal-3" style={{ '--petal-color': '#ff8fab' } as CSSProperties} />
+        {/* Pétalos traseros */}
+        <div className="petal petal-back petal-back-1" />
+        <div className="petal petal-back petal-back-2" />
+        
+        {/* Pétalos frontales */}
+        <div className="petal petal-front petal-1" />
+        <div className="petal petal-front petal-3" />
+
+        {/* Pétalos centrales */}
+        <div className="petal petal-front petal-2" />
+        <div className="petal petal-center" />
       </div>
     </div>
   );
 }
+// --- FIN TULIPÁN MEJORADO ---
 
 export default function SorpresaPage() {
   return (
     <div className="sorpresa-stage">
       <FloatingHearts />
 
+      {/* --- RAMO DE TULIPANES --- */}
       <div className="sorpresa-pedestal">
-        <Tulip />
+        <div className="tulip-wrapper tulip-1">
+          <Tulip color="rosa" delay={0.4}/>
+        </div>
+        <div className="tulip-wrapper tulip-2">
+          <Tulip color="fucsia" delay={0.2}/>
+        </div>
+        <div className="tulip-wrapper tulip-3">
+          <Tulip color="rosa" delay={0.6}/>
+        </div>
       </div>
+      {/* --- FIN RAMO --- */}
 
+
+      {/* --- MENSAJE CORREGIDO --- */}
       <div className="sorpresa-message animate-fade-in">
-        {/* CORRECCIÓN: Mensaje actualizado */}
         <p>"No te he visto hoy pero estoy seguro que te ves muy linda."</p>
-        {/* CORRECCIÓN: Firma actualizada */}
         <span>Att: O</span>
       </div>
+      {/* --- FIN MENSAJE CORREGIDO --- */}
     </div>
   );
 }

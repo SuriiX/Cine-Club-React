@@ -1,6 +1,6 @@
 'use client'; 
 
-import { useState, useEffect, useMemo } from 'react'; // Importamos useMemo
+import { useState, useEffect, useMemo } from 'react';
 import Toast from '@/components/Toast';
 
 // --- Definición de Tipos ---
@@ -29,11 +29,8 @@ export default function DirectoresPage() {
   const [generoId, setGeneroId] = useState('');
   const [tipoDocId, setTipoDocId] = useState('');
   
-  // Estado para controlar edición
   const [codigoActual, setCodigoActual] = useState<number | null>(null);
-  // Estado para manejar el Toast
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
-  // ¡NUEVO! Estado para la búsqueda
   const [searchQuery, setSearchQuery] = useState('');
 
   // --- Cargar datos ---
@@ -106,7 +103,7 @@ export default function DirectoresPage() {
     } catch (error) { setToast({ message: 'Hubo un error al eliminar.', type: 'error' }); }
   };
 
-  // ¡NUEVO! Lógica de filtrado para la búsqueda
+  // Lógica de filtrado
   const directoresFiltrados = useMemo(() => {
     return listaDirectores.filter(dir =>
       dir.Nombre?.toLowerCase().includes(searchQuery.toLowerCase())
@@ -114,22 +111,23 @@ export default function DirectoresPage() {
   }, [listaDirectores, searchQuery]);
 
   return (
-    <main className="container mx-auto">
+    <main>
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
-      <div className="bg-white shadow-md rounded-lg p-6">
-        <h1 className="text-3xl font-bold text-center text-emerald-800 mb-6">
+      
+      {/* --- FORMULARIO --- */}
+      <div className="form-container">
+        <h1 className="form-title">
           Gestión de Directores
         </h1>
         
-        {/* --- FORMULARIO --- */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
           <div>
-            <label htmlFor="txtNombre" className="block text-sm font-medium text-gray-700">Nombre:</label>
-            <input type="text" id="txtNombre" value={nombre} onChange={(e) => setNombre(e.target.value)} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
+            <label htmlFor="txtNombre" className="form-label">Nombre:</label>
+            <input type="text" id="txtNombre" value={nombre} onChange={(e) => setNombre(e.target.value)} className="form-input" />
           </div>
           <div>
-            <label htmlFor="cboPais" className="block text-sm font-medium text-gray-700">País:</label>
-            <select id="cboPais" value={paisId} onChange={(e) => setPaisId(e.target.value)} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm">
+            <label htmlFor="cboPais" className="form-label">País:</label>
+            <select id="cboPais" value={paisId} onChange={(e) => setPaisId(e.target.value)} className="form-select">
               <option value="">-- Seleccione --</option>
               {paises.map((pais) => (<option key={pais.Codigo} value={pais.Codigo}>{pais.Nombre}</option>))}
             </select>
@@ -137,87 +135,87 @@ export default function DirectoresPage() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
           <div>
-            <label htmlFor="cboEmpleado" className="block text-sm font-medium text-gray-700">Empleado (Registró):</label>
-            <select id="cboEmpleado" value={empleadoId} onChange={(e) => setEmpleadoId(e.target.value)} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm">
+            <label htmlFor="cboEmpleado" className="form-label">Empleado (Registró):</label>
+            <select id="cboEmpleado" value={empleadoId} onChange={(e) => setEmpleadoId(e.target.value)} className="form-select">
               <option value="">-- Seleccione --</option>
               {empleados.map((emp) => (<option key={emp.Codigo} value={emp.Codigo}>{emp.Nombre}</option>))}
             </select>
           </div>
           <div>
-            <label htmlFor="cboGenero" className="block text-sm font-medium text-gray-700">Género:</label>
-            <select id="cboGenero" value={generoId} onChange={(e) => setGeneroId(e.target.value)} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm">
+            <label htmlFor="cboGenero" className="form-label">Género:</label>
+            <select id="cboGenero" value={generoId} onChange={(e) => setGeneroId(e.target.value)} className="form-select">
               <option value="">-- Seleccione --</option>
               {generos.map((gen) => (<option key={gen.Codigo} value={gen.Codigo}>{gen.Nombre}</option>))}
             </select>
           </div>
           <div>
-            <label htmlFor="cboTipoDoc" className="block text-sm font-medium text-gray-700">Tipo Documento:</label>
-            <select id="cboTipoDoc" value={tipoDocId} onChange={(e) => setTipoDocId(e.target.value)} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm">
+            <label htmlFor="cboTipoDoc" className="form-label">Tipo Documento:</label>
+            <select id="cboTipoDoc" value={tipoDocId} onChange={(e) => setTipoDocId(e.target.value)} className="form-select">
               <option value="">-- Seleccione --</option>
               {tiposDoc.map((doc) => (<option key={doc.Codigo} value={doc.Codigo}>{doc.Nombre}</option>))}
             </select>
           </div>
         </div>
 
-        {/* --- BOTONES (Con nuevos colores y sin "Buscar") --- */}
-        <div className="flex justify-around items-center pt-6 border-t mt-6">
+        {/* --- BOTONES --- */}
+        <div className="form-button-container">
           {codigoActual === null ? (
-            <button onClick={handleAgregar} className="px-6 py-2 bg-emerald-600 text-white font-semibold rounded-lg shadow-md hover:bg-emerald-700">
+            <button onClick={handleAgregar} className="form-button form-button-add">
               Agregar
             </button>
           ) : (
-            <button onClick={handleModificar} className="px-6 py-2 bg-yellow-600 text-white font-semibold rounded-lg shadow-md hover:bg-yellow-700">
+            <button onClick={handleModificar} className="form-button form-button-edit">
               Modificar
             </button>
           )}
           {codigoActual !== null && (
-            <button onClick={limpiarFormulario} className="px-6 py-2 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700">
+            <button onClick={limpiarFormulario} className="form-button form-button-cancel">
               Cancelar
             </button>
           )}
         </div>
+      </div>
 
-        {/* --- TABLA DE DATOS (Con Búsqueda y nuevos estilos) --- */}
-        <div className="mt-8 overflow-x-auto">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl font-semibold text-gray-800">Lista de Directores</h2>
-            {/* ¡NUEVO! Campo de Búsqueda */}
-            <input
-              type="text"
-              placeholder="Buscar por Nombre..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="px-3 py-2 border border-gray-300 rounded-md shadow-sm w-1/3"
-            />
-          </div>
-          <table className="min-w-full bg-white">
-            <thead className="bg-stone-100 text-gray-700 uppercase text-sm">
+      {/* --- TABLA DE DATOS --- */}
+      <div className="table-section-container">
+        <div className="table-header-container">
+          <h2 className="table-title">Lista de Directores</h2>
+          <input
+            type="text"
+            placeholder="Buscar por Nombre..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="table-search-input"
+          />
+        </div>
+        <div className="table-wrapper">
+          <table className="table-element">
+            <thead className="table-head">
               <tr>
-                <th className="px-6 py-3 text-center font-medium">Acciones</th>
-                <th className="px-6 py-3 text-left font-medium">Código</th>
-                <th className="px-6 py-3 text-left font-medium">Nombre</th>
-                <th className="px-6 py-3 text-left font-medium">País</th>
-                <th className="px-6 py-3 text-left font-medium">Empleado</th>
-                <th className="px-6 py-3 text-left font-medium">Género</th>
-                <th className="px-6 py-3 text-left font-medium">Tipo Doc</th>
+                <th className="table-head-cell text-center">Acciones</th>
+                <th className="table-head-cell text-left">Código</th>
+                <th className="table-head-cell text-left">Nombre</th>
+                <th className="table-head-cell text-left">País</th>
+                <th className="table-head-cell text-left">Empleado</th>
+                <th className="table-head-cell text-left">Género</th>
+                <th className="table-head-cell text-left">Tipo Doc</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
-              {/* ¡CAMBIO! Mapeamos la lista filtrada */}
+            <tbody className="table-body">
               {directoresFiltrados.map((director) => (
-                <tr key={director.Codigo} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap text-center">
-                    <div className="flex justify-center gap-2">
-                      <button onClick={() => handleCargarParaEditar(director)} className="text-yellow-600 hover:text-yellow-800" title="Editar">✏️</button>
-                      <button onClick={() => handleDelete(director.Codigo)} className="text-red-600 hover:text-red-800" title="Eliminar">🗑️</button>
+                <tr key={director.Codigo} className="table-body-row">
+                  <td className="table-body-cell">
+                    <div className="flex justify-center gap-4">
+                      <button onClick={() => handleCargarParaEditar(director)} className="table-action-button table-action-edit" title="Editar">✏️</button>
+                      <button onClick={() => handleDelete(director.Codigo)} className="table-action-button table-action-delete" title="Eliminar">🗑️</button>
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-800">{director.Codigo}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-800">{director.Nombre}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-800">{director.Pais?.Nombre}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-800">{director.Empleado?.Nombre}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-800">{director.Genero?.Nombre}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-800">{director.TipoDoc?.Nombre}</td>
+                  <td className="table-body-cell">{director.Codigo}</td>
+                  <td className="table-body-cell">{director.Nombre}</td>
+                  <td className="table-body-cell">{director.Pais?.Nombre}</td>
+                  <td className="table-body-cell">{director.Empleado?.Nombre}</td>
+                  <td className="table-body-cell">{director.Genero?.Nombre}</td>
+                  <td className="table-body-cell">{director.TipoDoc?.Nombre}</td>
                 </tr>
               ))}
             </tbody>
