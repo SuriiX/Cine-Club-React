@@ -1,5 +1,8 @@
 datasource db {
-  provider = env("DATABASE_PROVIDER")
+  // Escribimos "postgresql" directamente, como pide el error.
+  provider = "postgresql" 
+
+  // Mantenemos la URL como una variable de entorno.
   url      = env("DATABASE_URL")
 }
 
