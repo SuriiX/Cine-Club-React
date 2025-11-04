@@ -1,9 +1,6 @@
 datasource db {
-  provider  = "postgresql"
-  // Esta es la variable por defecto (con pool) que Vercel crea
-  url       = env("DATABASE_URL") 
-  // Esta es la variable por defecto (sin pool) que Vercel crea
-  directUrl = env("DATABASE_URL_UNPOOLED") 
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
 }
 
 // 2. Configura el Generador de Cliente

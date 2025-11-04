@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Cine Club Next.js
 
-## Getting Started
+Aplicación web para gestionar géneros, empleados, directores, productoras y películas de un cine club. El proyecto utiliza Next.js 16 con Prisma como ORM y una base de datos SQLite preconfigurada y poblada mediante un script de _seed_.
 
-First, run the development server:
+## Requisitos previos
 
+- Node.js 20+
+- npm 10+
+
+## Configuración inicial
+
+1. Instala las dependencias:
+   ```bash
+   npm install
+   ```
+2. Crea el archivo de variables de entorno a partir del ejemplo:
+   ```bash
+   cp .env.example .env
+   ```
+3. Ejecuta las migraciones de la base de datos (SQLite) y aplica el script de datos de ejemplo:
+   ```bash
+   DATABASE_URL="file:./prisma/dev.db" npx prisma migrate deploy
+   DATABASE_URL="file:./prisma/dev.db" npx prisma db seed
+   ```
+   > También puedes exportar `DATABASE_URL` en tu terminal para no repetirlo en cada comando.
+
+## Ejecutar el servidor de desarrollo
+
+1. Inicia el servidor de desarrollo de Next.js:
+   ```bash
+   npm run dev
+   ```
+2. Abre [http://localhost:3000](http://localhost:3000) en tu navegador para utilizar la aplicación.
+
+La interfaz permite listar, crear, actualizar y eliminar películas consumiendo las API Routes que interactúan con la base de datos mediante Prisma.
+
+## Scripts disponibles
+
+- `npm run dev`: inicia el servidor de desarrollo.
+- `npm run build`: genera la compilación para producción.
+- `npm run start`: inicia la aplicación compilada.
+- `npm run lint`: ejecuta las reglas de ESLint.
+
+## Migraciones y base de datos
+
+Los archivos de migraciones se encuentran en `prisma/migrations`. Puedes crear nuevas migraciones a medida que evoluciona el esquema ejecutando:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+DATABASE_URL="file:./prisma/dev.db" npx prisma migrate dev --name <nombre_de_la_migracion>
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+El script de semillas (`prisma/seed.ts`) reinicia las tablas principales y agrega datos de referencia para que la aplicación tenga información disponible inmediatamente después de la instalación.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Créditos
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Proyecto construido con [Next.js](https://nextjs.org/) y [Prisma](https://www.prisma.io/).

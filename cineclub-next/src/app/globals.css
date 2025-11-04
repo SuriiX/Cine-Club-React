@@ -137,349 +137,40 @@ body::before {
   }
 }
 
-.mf-sigil {
-  position: fixed;
-  bottom: 1.75rem;
-  right: 2rem;
+.mf-button {
+  position: absolute;
+  bottom: 32px;
+  right: 36px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 3.25rem;
-  height: 3.25rem;
-  border-radius: 9999px;
+  padding: 0.75rem 1.5rem;
   font-family: 'Cinzel', 'Georgia', serif;
-  font-size: 1.05rem;
-  letter-spacing: 0.18em;
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #ffe9ef;
-  background:
-    radial-gradient(circle at 30% 30%, rgba(255, 160, 200, 0.28), transparent 60%),
-    rgba(28, 0, 12, 0.86);
-  border: 1px solid rgba(255, 110, 150, 0.4);
-  box-shadow: 0 10px 24px rgba(255, 70, 140, 0.25);
-  text-shadow: 0 0 8px rgba(255, 196, 220, 0.65);
-  opacity: 0.55;
-  backdrop-filter: blur(4px);
-  transition: transform 0.35s ease, box-shadow 0.35s ease, opacity 0.35s ease;
+  background: linear-gradient(135deg, rgba(255, 80, 120, 0.85), rgba(120, 0, 40, 0.95));
+  border-radius: 9999px;
+  text-shadow: 0 0 14px rgba(255, 196, 212, 0.85);
+  box-shadow: 0 0 30px rgba(255, 80, 120, 0.4), inset 0 0 12px rgba(255, 164, 188, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+  animation: neonPulse 2.6s ease-in-out infinite;
 }
 
-.mf-sigil:hover {
-  transform: translateY(-4px) scale(1.08);
-  opacity: 1;
-  box-shadow: 0 16px 38px rgba(255, 120, 180, 0.35);
+.mf-button:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 0 40px rgba(255, 128, 160, 0.6), inset 0 0 16px rgba(255, 204, 216, 0.6);
+  filter: brightness(1.1);
+  cursor: pointer;
 }
 
-@media (max-width: 768px) {
-  .mf-sigil {
-    width: 2.75rem;
-    height: 2.75rem;
-    font-size: 0.95rem;
-    bottom: 1.25rem;
-    right: 1.25rem;
-    opacity: 0.6;
-  }
-}
-
-.sorpresa-stage {
-  position: relative;
-  min-height: 100vh;
-  padding: 6rem 1.5rem 5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(255, 194, 209, 0.3), transparent 55%),
-    radial-gradient(circle at 80% 25%, rgba(255, 155, 186, 0.22), transparent 60%),
-    linear-gradient(140deg, #fff1f8 0%, #ffe2f1 45%, #ffd2e9 100%);
-}
-
-.sorpresa-stage::before,
-.sorpresa-stage::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-
-.sorpresa-stage::before {
-  background: radial-gradient(circle at bottom, rgba(255, 118, 151, 0.35), transparent 55%);
-}
-
-.sorpresa-stage::after {
-  background-image: url('/images/film-strip.svg');
-  background-size: 420px 160px;
-  background-repeat: repeat;
-  opacity: 0.07;
-  mix-blend-mode: screen;
-  animation: filmScroll 28s linear infinite;
-}
-
-.sorpresa-pedestal {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  height: clamp(320px, 40vw, 420px);
-  width: clamp(220px, 32vw, 320px);
-  padding-bottom: 4rem;
-  z-index: 2;
-}
-
-.sorpresa-pedestal::after {
-  content: '';
-  position: absolute;
-  bottom: 3rem;
-  left: 50%;
-  width: 160%;
-  height: 32px;
-  transform: translateX(-50%);
-  background: radial-gradient(circle, rgba(255, 120, 160, 0.3), transparent 70%);
-  filter: blur(18px);
-  z-index: -1;
-}
-
-.heart-container {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.heart {
-  position: absolute;
-  bottom: -18vh;
-  width: 26px;
-  height: 26px;
-  background: linear-gradient(135deg, #ff6fa4 0%, #ffd6ec 100%);
-  transform: rotate(-45deg);
-  transform-origin: center;
-  border-radius: 8px 0 8px 8px;
-  filter: drop-shadow(0 8px 14px rgba(255, 120, 170, 0.35));
-  animation: heartFloat var(--duration, 7s) ease-in infinite;
-  animation-delay: var(--delay, 0s);
-  opacity: 0;
-}
-
-.heart::before,
-.heart::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: inherit;
-  border-radius: 50%;
-}
-
-.heart::before {
-  top: -50%;
-  left: 0;
-}
-
-.heart::after {
-  left: 50%;
-  top: 0;
-}
-
-@keyframes heartFloat {
-  0% {
-    opacity: 0;
-    transform: translate3d(0, 0, 0) scale(calc(var(--scale, 1) * 0.7)) rotate(-45deg);
-  }
-  12% {
-    opacity: 0.85;
-  }
-  55% {
-    opacity: 0.95;
-    transform: translate3d(calc(var(--drift, 18px) * 0.55), -60vh, 0) scale(calc(var(--scale, 1) * 1.05)) rotate(-45deg);
-  }
+@keyframes neonPulse {
+  0%,
   100% {
-    opacity: 0;
-    transform: translate3d(var(--drift, 18px), -120vh, 0) scale(calc(var(--scale, 1) * 1.12)) rotate(-45deg);
-  }
-}
-
-.tulip {
-  position: relative;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  width: 140px;
-  height: 240px;
-  transform-origin: bottom center;
-  animation: tulipSway 5.5s ease-in-out infinite alternate;
-}
-
-.stem {
-  position: absolute;
-  bottom: 0;
-  width: 10px;
-  height: 70%;
-  border-radius: 999px;
-  background: linear-gradient(180deg, #4dbb7a 0%, #2d8f54 90%);
-  box-shadow: inset 0 0 6px rgba(0, 60, 32, 0.25);
-}
-
-.leaf {
-  position: absolute;
-  bottom: 28%;
-  width: 76px;
-  height: 90px;
-  background: linear-gradient(135deg, #58c487 0%, #2f8a59 80%);
-  border-radius: 60% 40% 60% 40%;
-  box-shadow: inset 0 0 12px rgba(0, 40, 24, 0.25);
-  opacity: 0;
-}
-
-.leaf-1 {
-  left: -34px;
-  transform: rotate(18deg);
-  animation: leafRevealLeft 1.6s ease forwards;
-  animation-delay: 0.45s;
-}
-
-.leaf-2 {
-  right: -34px;
-  transform: scaleX(-1) rotate(18deg);
-  animation: leafRevealRight 1.6s ease forwards;
-  animation-delay: 0.55s;
-}
-
-.flower-cup {
-  position: absolute;
-  bottom: 66%;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  width: 160px;
-  height: 150px;
-  filter: drop-shadow(0 18px 26px rgba(247, 114, 167, 0.25));
-  transform-origin: bottom center;
-  opacity: 0;
-  animation: bloom 1.9s ease forwards;
-  animation-delay: 0.6s;
-}
-
-.flower-cup div {
-  flex: 1;
-  height: 100%;
-  border-radius: 70% 70% 40% 40%;
-  margin: 0 2px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.18), transparent 45%),
-    var(--petal-color, #f72585);
-  background-blend-mode: screen;
-  position: relative;
-}
-
-.petal-1 {
-  transform: translateY(8px) scaleX(0.82);
-  filter: brightness(0.94);
-}
-
-.petal-2 {
-  transform: translateY(-6px);
-}
-
-.petal-3 {
-  transform: translateY(8px) scaleX(0.82);
-  filter: brightness(1.08);
-}
-
-.sorpresa-message {
-  position: relative;
-  z-index: 2;
-  margin-top: 3rem;
-  padding: 2.5rem 2.75rem;
-  max-width: 32rem;
-  border-radius: 28px;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.32), rgba(255, 214, 228, 0.45)),
-    rgba(255, 255, 255, 0.45);
-  box-shadow: 0 18px 45px rgba(255, 150, 190, 0.25);
-  backdrop-filter: blur(12px);
-  text-align: center;
-}
-
-.sorpresa-message p {
-  font-family: 'Playfair Display', 'Times New Roman', serif;
-  font-size: clamp(1.6rem, 2vw + 1rem, 2.4rem);
-  color: #6a1f3b;
-  line-height: 1.45;
-  text-shadow: 0 8px 18px rgba(255, 215, 227, 0.6);
-}
-
-.sorpresa-message span {
-  display: block;
-  margin-top: 1.25rem;
-  font-size: 1rem;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: rgba(106, 31, 59, 0.65);
-}
-
-@keyframes tulipSway {
-  0% {
-    transform: rotate(-2deg) scale(0.96);
+    box-shadow: 0 0 30px rgba(255, 80, 120, 0.4), inset 0 0 12px rgba(255, 164, 188, 0.5);
   }
   50% {
-    transform: rotate(2deg) scale(1);
-  }
-  100% {
-    transform: rotate(-1.5deg) scale(0.98);
-  }
-}
-
-@keyframes bloom {
-  0% {
-    transform: translateY(60px) scaleY(0.4) scaleX(0.6);
-    opacity: 0;
-  }
-  60% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(0) scaleY(1) scaleX(1);
-    opacity: 1;
-  }
-}
-
-@keyframes leafRevealLeft {
-  0% {
-    opacity: 0;
-    transform: translateY(30px) scale(0.65) rotate(6deg);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1) rotate(18deg);
-  }
-}
-
-@keyframes leafRevealRight {
-  0% {
-    opacity: 0;
-    transform: translateY(30px) scale(0.65) scaleX(-1) rotate(6deg);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1) scaleX(-1) rotate(18deg);
-  }
-}
-
-@media (max-width: 640px) {
-  .sorpresa-stage {
-    padding: 4.5rem 1.25rem 4rem;
-  }
-
-  .sorpresa-pedestal {
-    width: 220px;
-    height: 320px;
-  }
-
-  .sorpresa-message {
-    padding: 2rem;
+    box-shadow: 0 0 38px rgba(255, 160, 200, 0.55), inset 0 0 20px rgba(255, 200, 220, 0.7);
   }
 }
