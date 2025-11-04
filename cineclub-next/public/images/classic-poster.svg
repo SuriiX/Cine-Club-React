@@ -1,0 +1,20 @@
+<svg width="280" height="360" viewBox="0 0 280 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="280" height="360" rx="28" fill="url(#grad)"/>
+  <g opacity="0.85">
+    <rect x="44" y="64" width="192" height="116" rx="18" fill="#0F0506" stroke="#FFC1CF" stroke-width="4"/>
+    <circle cx="94" cy="122" r="22" stroke="#FFC1CF" stroke-width="4"/>
+    <circle cx="186" cy="122" r="22" stroke="#FFC1CF" stroke-width="4"/>
+    <rect x="118" y="106" width="48" height="32" rx="8" fill="#FFC1CF"/>
+    <circle cx="78" cy="222" r="18" fill="#FFC1CF" opacity="0.4"/>
+    <circle cx="202" cy="246" r="28" fill="#FFC1CF" opacity="0.3"/>
+    <path d="M70 280H210" stroke="#FFC1CF" stroke-width="6" stroke-linecap="round" opacity="0.6"/>
+  </g>
+  <text x="50%" y="320" text-anchor="middle" fill="#FFE8EE" font-family="'Segoe UI', 'Inter', sans-serif" font-size="28" font-weight="600">Clásicos</text>
+  <defs>
+    <linearGradient id="grad" x1="0" y1="0" x2="280" y2="360" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2B0005"/>
+      <stop offset="0.55" stop-color="#160003"/>
+      <stop offset="1" stop-color="#540312"/>
+    </linearGradient>
+  </defs>
+</svg>
