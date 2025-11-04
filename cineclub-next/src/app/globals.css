@@ -135,21 +135,20 @@ body::before {
 
 
 /* --- INICIO: NUEVOS Estilos para Formularios y Tablas --- */
-@layer components {
-  .management-page-container {
-    margin-top: 3rem;
-    margin-bottom: 3rem;
-  }
+.management-page-container {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
 
-  .form-card {
-    border: 1px solid rgba(225, 29, 72, 0.4);
-    background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.1), rgba(32, 0, 8, 0.45), rgba(18, 0, 5, 0.75));
-    padding: 1.5rem;
-    border-radius: 1rem;
-    box-shadow: 0 20px 60px rgba(255, 80, 120, 0.25), 0 0 30px rgba(255, 120, 160, 0.25);
-    backdrop-filter: blur(4px);
-    animation: fadeIn 1s ease-in-out;
-  }
+.form-card {
+  border: 1px solid rgba(225, 29, 72, 0.4);
+  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.1), rgba(32, 0, 8, 0.45), rgba(18, 0, 5, 0.75));
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 20px 60px rgba(255, 80, 120, 0.25), 0 0 30px rgba(255, 120, 160, 0.25);
+  backdrop-filter: blur(4px);
+  animation: fadeIn 1s ease-in-out;
+}
   .form-title {
     @apply text-3xl font-bold text-center text-rose-100 mb-8 tracking-wide;
   }
