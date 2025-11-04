@@ -137,136 +137,240 @@ export default function EmpleadosPage() {
     );
   }, [listaEmpleados, searchQuery]);
 
+  const inputClass =
+    'block w-full rounded-xl border border-rose-700/40 bg-[#1a0010]/80 px-3 py-2 text-sm text-rose-100 placeholder-rose-200/50 shadow-sm transition focus:border-rose-400 focus:outline-none focus:ring-2 focus:ring-rose-500/40';
+
   return (
-    <main className="container mx-auto">
+    <main className="min-h-screen bg-gradient-to-br from-[#0d0003] via-[#180007] to-[#050002] px-4 py-10 text-rose-50">
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
-      <div className="bg-white shadow-md rounded-lg p-6">
-        {/* Título con nuevo color */}
-        <h1 className="text-3xl font-bold text-center text-emerald-800 mb-6">
-          Gestión de Empleados
-        </h1>
-        
-        {/* --- FORMULARIO --- */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
-          <div>
-            <label htmlFor="txtCodigo" className="block text-sm font-medium text-gray-700">Código:</label>
-            <input type="text" id="txtCodigo" value={codigo} disabled className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-stone-100" />
+      <div className="mx-auto flex max-w-6xl flex-col gap-10">
+        <header className="relative overflow-hidden rounded-3xl border border-rose-900/60 bg-gradient-to-br from-[#200008]/90 via-[#31010c]/85 to-[#120005]/95 p-10 shadow-cinema">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(255,120,150,0.12),transparent_60%)]" />
+          <div className="relative flex flex-col gap-4">
+            <span className="inline-flex w-fit items-center gap-2 rounded-full border border-rose-400/50 bg-rose-500/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.35em] text-rose-100/80">
+              Equipo en escena
+            </span>
+            <h1 className="text-4xl font-bold tracking-tight text-rose-50 md:text-5xl">Gestión de Empleados</h1>
+            <p className="max-w-2xl text-sm leading-relaxed text-rose-100/80">
+              Administra al reparto que hace posible cada función. Controla sus datos, asigna supervisiones y mantén viva la experiencia cinematográfica con la misma energía de la pantalla principal.
+            </p>
           </div>
-          <div>
-            <label htmlFor="txtNombre" className="block text-sm font-medium text-gray-700">Nombre:</label>
-            <input type="text" id="txtNombre" value={nombre} onChange={(e) => setNombre(e.target.value)} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
-          </div>
-          <div>
-            <label htmlFor="txtFechaNacimiento" className="block text-sm font-medium text-gray-700">Fecha de Nacimiento:</label>
-            <input type="date" id="txtFechaNacimiento" value={fechaNacimiento} onChange={(e) => setFechaNacimiento(e.target.value)} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
-          </div>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
-          <div>
-            <label htmlFor="cboTipoDoc" className="block text-sm font-medium text-gray-700">Tipo de Documento:</label>
-            <select id="cboTipoDoc" value={tipoDocId} onChange={(e) => setTipoDocId(e.target.value)} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm">
-              <option value="">-- Seleccione --</option>
-              {tiposDoc.map((doc) => (<option key={doc.Codigo} value={doc.Codigo}>{doc.Nombre}</option>))}
-            </select>
-          </div>
-          <div>
-            <label htmlFor="txtNroDoc" className="block text-sm font-medium text-gray-700">Número de Documento:</label>
-            <input type="number" id="txtNroDoc" value={nroDoc} onChange={(e) => setNroDoc(e.target.value)} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
-          </div>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
-          <div>
-            <label htmlFor="cboGenero" className="block text-sm font-medium text-gray-700">Género:</label>
-            <select id="cboGenero" value={generoId} onChange={(e) => setGeneroId(e.target.value)} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm">
-              <option value="">-- Seleccione --</option>
-              {generos.map((gen) => (<option key={gen.Codigo} value={gen.Codigo}>{gen.Nombre}</option>))}
-            </select>
-          </div>
-          <div>
-            <label htmlFor="txtSalario" className="block text-sm font-medium text-gray-700">Salario:</label>
-            <input type="number" id="txtSalario" value={salario} onChange={(e) => setSalario(e.target.value)} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" />
-          </div>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4 items-center">
-          <div className="md:col-span-2">
-            <label htmlFor="cboEmpleado" className="block text-sm font-medium text-gray-700">Supervisor:</label>
-            <select id="cboEmpleado" value={supervisorId} onChange={(e) => setSupervisorId(e.target.value)} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm">
-              <option value="">-- Ninguno --</option>
-              {supervisores.map((sup) => ( sup.Codigo !== codigoActual && (<option key={sup.Codigo} value={sup.Codigo}>{sup.Nombre}</option>) ))}
-            </select>
-          </div>
-          <div className="flex items-center justify-center h-full pt-6">
-            <input type="checkbox" id="chkActivo" checked={activo} onChange={(e) => setActivo(e.target.checked)} className="h-5 w-5 text-emerald-600 border-gray-300 rounded" />
-            <label htmlFor="chkActivo" className="ml-2 block text-sm font-medium text-gray-700">Activo</label>
-          </div>
-        </div>
+        </header>
 
-        {/* --- BOTONES (Con nuevos colores y sin "Buscar") --- */}
-        <div className="flex justify-around items-center pt-6 border-t mt-6">
-          {codigoActual === null ? (
-            <button onClick={handleAgregar} className="px-6 py-2 bg-emerald-600 text-white font-semibold rounded-lg shadow-md hover:bg-emerald-700">
-              Agregar
-            </button>
-          ) : (
-            <button onClick={handleModificar} className="px-6 py-2 bg-yellow-600 text-white font-semibold rounded-lg shadow-md hover:bg-yellow-700">
-              Modificar
-            </button>
-          )}
-          {codigoActual !== null && (
-            <button onClick={limpiarFormulario} className="px-6 py-2 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700">
-              Cancelar
-            </button>
-          )}
-        </div>
+        <section className="space-y-10 rounded-3xl border border-rose-900/60 bg-black/30 p-8 shadow-cinema backdrop-blur">
+          <div className="grid grid-cols-1 gap-6 text-sm text-rose-200 lg:grid-cols-3">
+            <div>
+              <label htmlFor="txtCodigo" className="font-medium uppercase tracking-[0.3em] text-rose-300/80">Código</label>
+              <input
+                type="text"
+                id="txtCodigo"
+                value={codigo}
+                disabled
+                className={`mt-2 ${inputClass} cursor-not-allowed bg-[#2b0013]/60 text-rose-300/70`}
+              />
+            </div>
+            <div>
+              <label htmlFor="txtNombre" className="font-medium uppercase tracking-[0.3em] text-rose-300/80">Nombre</label>
+              <input
+                type="text"
+                id="txtNombre"
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
+                className={`mt-2 ${inputClass}`}
+              />
+            </div>
+            <div>
+              <label htmlFor="txtFechaNacimiento" className="font-medium uppercase tracking-[0.3em] text-rose-300/80">Fecha de nacimiento</label>
+              <input
+                type="date"
+                id="txtFechaNacimiento"
+                value={fechaNacimiento}
+                onChange={(e) => setFechaNacimiento(e.target.value)}
+                className={`mt-2 ${inputClass}`}
+              />
+            </div>
+          </div>
 
-        {/* --- TABLA DE DATOS (Con Búsqueda y nuevos estilos) --- */}
-        <div className="mt-8 overflow-x-auto">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-2xl font-semibold text-gray-800">Lista de Empleados</h2>
-            {/* ¡NUEVO! Campo de Búsqueda */}
+          <div className="grid grid-cols-1 gap-6 text-sm text-rose-200 md:grid-cols-2">
+            <div>
+              <label htmlFor="cboTipoDoc" className="font-medium uppercase tracking-[0.3em] text-rose-300/80">Tipo de documento</label>
+              <select
+                id="cboTipoDoc"
+                value={tipoDocId}
+                onChange={(e) => setTipoDocId(e.target.value)}
+                className={`mt-2 ${inputClass}`}
+              >
+                <option value="">-- Seleccione --</option>
+                {tiposDoc.map((doc) => (
+                  <option key={doc.Codigo} value={doc.Codigo}>
+                    {doc.Nombre}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label htmlFor="txtNroDoc" className="font-medium uppercase tracking-[0.3em] text-rose-300/80">Número de documento</label>
+              <input
+                type="number"
+                id="txtNroDoc"
+                value={nroDoc}
+                onChange={(e) => setNroDoc(e.target.value)}
+                className={`mt-2 ${inputClass}`}
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 text-sm text-rose-200 md:grid-cols-2">
+            <div>
+              <label htmlFor="cboGenero" className="font-medium uppercase tracking-[0.3em] text-rose-300/80">Género</label>
+              <select
+                id="cboGenero"
+                value={generoId}
+                onChange={(e) => setGeneroId(e.target.value)}
+                className={`mt-2 ${inputClass}`}
+              >
+                <option value="">-- Seleccione --</option>
+                {generos.map((gen) => (
+                  <option key={gen.Codigo} value={gen.Codigo}>
+                    {gen.Nombre}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label htmlFor="txtSalario" className="font-medium uppercase tracking-[0.3em] text-rose-300/80">Salario</label>
+              <input
+                type="number"
+                id="txtSalario"
+                value={salario}
+                onChange={(e) => setSalario(e.target.value)}
+                className={`mt-2 ${inputClass}`}
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 items-end gap-6 text-sm text-rose-200 md:grid-cols-3">
+            <div className="md:col-span-2">
+              <label htmlFor="cboEmpleado" className="font-medium uppercase tracking-[0.3em] text-rose-300/80">Supervisor</label>
+              <select
+                id="cboEmpleado"
+                value={supervisorId}
+                onChange={(e) => setSupervisorId(e.target.value)}
+                className={`mt-2 ${inputClass}`}
+              >
+                <option value="">-- Ninguno --</option>
+                {supervisores
+                  .filter((sup) => sup.Codigo !== codigoActual)
+                  .map((sup) => (
+                    <option key={sup.Codigo} value={sup.Codigo}>
+                      {sup.Nombre}
+                    </option>
+                  ))}
+              </select>
+            </div>
+            <div className="flex items-center gap-3">
+              <input
+                type="checkbox"
+                id="chkActivo"
+                checked={activo}
+                onChange={(e) => setActivo(e.target.checked)}
+                className="h-5 w-5 rounded border-rose-600/60 bg-[#1a0010] text-rose-400 focus:ring-rose-400/60"
+              />
+              <label htmlFor="chkActivo" className="text-xs font-semibold uppercase tracking-[0.35em] text-rose-200">
+                Activo
+              </label>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-4 border-t border-rose-900/50 pt-6">
+            {codigoActual === null ? (
+              <button
+                onClick={handleAgregar}
+                className="rounded-full border border-rose-500/60 bg-rose-500/20 px-8 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-rose-100 transition-all duration-300 hover:-translate-y-0.5 hover:bg-rose-500/35 hover:text-rose-50"
+              >
+                Agregar
+              </button>
+            ) : (
+              <button
+                onClick={handleModificar}
+                className="rounded-full border border-amber-400/60 bg-amber-400/15 px-8 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-amber-100 transition-all duration-300 hover:-translate-y-0.5 hover:bg-amber-400/25"
+              >
+                Modificar
+              </button>
+            )}
+            {codigoActual !== null && (
+              <button
+                onClick={limpiarFormulario}
+                className="rounded-full border border-rose-300/50 bg-transparent px-8 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-rose-300 transition-all duration-300 hover:-translate-y-0.5 hover:bg-rose-500/10 hover:text-rose-100"
+              >
+                Cancelar
+              </button>
+            )}
+          </div>
+        </section>
+
+        <section className="space-y-6 rounded-3xl border border-rose-900/60 bg-black/30 p-8 shadow-cinema backdrop-blur">
+          <div className="flex flex-col gap-4 text-sm text-rose-200 md:flex-row md:items-center md:justify-between">
+            <div>
+              <h2 className="text-2xl font-semibold text-rose-50">Lista de empleados</h2>
+              <p className="text-xs uppercase tracking-[0.35em] text-rose-300/70">Filtra por nombre o documento</p>
+            </div>
             <input
               type="text"
               placeholder="Buscar por Nombre o NroDoc..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="px-3 py-2 border border-gray-300 rounded-md shadow-sm w-1/3"
+              className={`${inputClass} mt-0 w-full text-sm md:w-72`}
             />
           </div>
-          <table className="min-w-full bg-white">
-            <thead className="bg-stone-100 text-gray-700 uppercase text-sm">
-              <tr>
-                <th className="px-6 py-3 text-center font-medium">Acciones</th>
-                <th className="px-6 py-3 text-left font-medium">Código</th>
-                <th className="px-6 py-3 text-left font-medium">Nombre</th>
-                <th className="px-6 py-3 text-left font-medium">TipoDoc</th>
-                <th className="px-6 py-3 text-left font-medium">NroDoc</th>
-                <th className="px-6 py-3 text-left font-medium">Genero</th>
-                <th className="px-6 py-3 text-left font-medium">Supervisor</th>
-                <th className="px-6 py-3 text-left font-medium">Activo</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {/* ¡CAMBIO! Mapeamos la lista filtrada */}
-              {empleadosFiltrados.map((emp) => (
-                <tr key={emp.Codigo} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap text-center">
-                    <div className="flex justify-center gap-2">
-                      <button onClick={() => handleCargarParaEditar(emp)} className="text-yellow-600 hover:text-yellow-800" title="Editar Empleado">✏️</button>
-                      <button onClick={() => handleDelete(emp.Codigo)} className="text-red-600 hover:text-red-800" title="Eliminar Empleado">🗑️</button>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-800">{emp.Codigo}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-800">{emp.Nombre}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-800">{emp.TipoDoc?.Nombre}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-800">{emp.NroDoc}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-800">{emp.Genero?.Nombre}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-800">{emp.Supervisor?.Nombre}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-800">{emp.Activo ? 'Sí' : 'No'}</td>
+          <div className="overflow-hidden rounded-2xl border border-rose-900/60 bg-black/40">
+            <table className="min-w-full text-sm text-rose-100">
+              <thead className="bg-rose-900/50 text-xs uppercase tracking-[0.35em] text-rose-200">
+                <tr>
+                  <th className="px-6 py-3 text-center">Acciones</th>
+                  <th className="px-6 py-3 text-left">Código</th>
+                  <th className="px-6 py-3 text-left">Nombre</th>
+                  <th className="px-6 py-3 text-left">TipoDoc</th>
+                  <th className="px-6 py-3 text-left">NroDoc</th>
+                  <th className="px-6 py-3 text-left">Género</th>
+                  <th className="px-6 py-3 text-left">Supervisor</th>
+                  <th className="px-6 py-3 text-left">Activo</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody className="divide-y divide-rose-900/50">
+                {empleadosFiltrados.map((emp) => (
+                  <tr key={emp.Codigo} className="transition-colors duration-200 hover:bg-rose-900/30">
+                    <td className="px-6 py-4 text-center">
+                      <div className="flex justify-center gap-3 text-lg">
+                        <button
+                          onClick={() => handleCargarParaEditar(emp)}
+                          className="text-amber-200 transition hover:text-amber-100"
+                          title="Editar Empleado"
+                        >
+                          ✏️
+                        </button>
+                        <button
+                          onClick={() => handleDelete(emp.Codigo)}
+                          className="text-rose-300 transition hover:text-rose-100"
+                          title="Eliminar Empleado"
+                        >
+                          🗑️
+                        </button>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 text-rose-100/90">{emp.Codigo}</td>
+                    <td className="px-6 py-4 text-rose-50/90">{emp.Nombre}</td>
+                    <td className="px-6 py-4 text-rose-100/80">{emp.TipoDoc?.Nombre}</td>
+                    <td className="px-6 py-4 text-rose-100/80">{emp.NroDoc}</td>
+                    <td className="px-6 py-4 text-rose-100/80">{emp.Genero?.Nombre}</td>
+                    <td className="px-6 py-4 text-rose-100/80">{emp.Supervisor?.Nombre}</td>
+                    <td className="px-6 py-4 text-rose-100/80">{emp.Activo ? 'Sí' : 'No'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
       </div>
     </main>
   );
