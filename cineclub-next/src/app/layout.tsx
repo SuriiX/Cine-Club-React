@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-
-import Sidebar from '@/components/Sidebar'; 
+import Sidebar from '@/components/Sidebar'; // Importamos el Sidebar
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,10 +18,11 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className={inter.className}>
-        <div className="flex h-screen bg-gray-100">
-
+        {/* Cambiamos el fondo a un tono piedra/natural */}
+        <div className="flex h-screen bg-stone-50">
+          
           <Sidebar /> 
-
+          
           <main className="flex-1 p-8 overflow-auto">
             {children} 
           </main>

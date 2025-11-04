@@ -33,3 +33,293 @@ body {
     to { opacity: 1; transform: translateY(0); }
   }
 }
+.mf-button {
+  position: absolute;
+  bottom: 20px;
+  right: 24px;
+  font-family: 'Georgia', serif; /* Una fuente elegante */
+  font-size: 1.5rem; /* 24px */
+  font-weight: 700;
+  color: white;
+  opacity: 0.7;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+  animation: subtle-pulse 3s infinite ease-in-out;
+}
+
+.mf-button:hover {
+  opacity: 1;
+  transform: scale(1.1);
+  text-shadow: 0 0 20px rgba(255, 255, 255, 1);
+  cursor: pointer;
+}
+
+@keyframes subtle-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+
+/* --- Estilos para los Girasoles --- */
+.sunflower {
+  position: relative;
+  width: 20px; /* Ancho del tallo */
+  height: 300px;
+  margin: 0 20px;
+  animation: grow 2s ease-out forwards;
+  transform-origin: bottom center;
+  transform: scaleY(0); /* Empieza sin altura */
+}
+
+.stem {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, #228B22, #32CD32); /* Verde tallo */
+  border-radius: 10px 10px 0 0;
+}
+
+.leaf {
+  position: absolute;
+  width: 60px;
+  height: 40px;
+  background-color: #32CD32;
+  border-radius: 5px 40px 5px 40px;
+  animation: wave 2s infinite alternate ease-in-out;
+}
+
+.leaf-1 {
+  bottom: 100px;
+  left: -40px;
+  transform: rotate(-30deg);
+  animation-delay: 1s;
+}
+
+.leaf-2 {
+  bottom: 150px;
+  right: -40px;
+  transform: rotate(210deg);
+  animation-delay: 1.5s;
+}
+
+.flower-head {
+  position: absolute;
+  top: -60px; /* Posiciona la cabeza sobre el tallo */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 120px;
+  animation: bloom 1.5s 1s ease-out forwards;
+  opacity: 0;
+}
+
+.sunflower-center {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background-color: #583c00; /* Marrón oscuro */
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.petal {
+  position: absolute;
+  width: 40px;
+  height: 60px;
+  background-color: #FFD700; /* Amarillo girasol */
+  border-radius: 20px 20px 0 0;
+  top: 50%;
+  left: 50%;
+  transform-origin: bottom center;
+  margin-left: -20px; /* Mitad del ancho */
+  margin-top: -30px; /* Mitad de la altura (para centrarlo) */
+  z-index: 1;
+  /* Aplicamos la rotación desde el JS */
+}
+
+/* --- Animaciones de Flores --- */
+@keyframes grow {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+@keyframes bloom {
+  from { opacity: 0; transform: scale(0.5) rotate(-45deg); }
+  to { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+@keyframes wave {
+  from { transform: rotate(-30deg) skewX(-10deg); }
+  to { transform: rotate(-20deg) skewX(10deg); }
+}
+/* --- Estilos para los Tulipanes --- */
+.tulip {
+  position: relative;
+  width: 15px; /* Tallo más delgado */
+  height: 300px;
+  margin: 0 25px;
+  animation: grow 2s ease-out forwards;
+  transform-origin: bottom center;
+  transform: scaleY(0); /* Empieza sin altura */
+}
+
+.tulip .stem {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, #2a9d8f, #43b3a4); /* Verde tallo */
+  border-radius: 10px 10px 0 0;
+}
+
+.tulip .leaf {
+  position: absolute;
+  width: 30px;
+  height: 100px;
+  background-color: #2a9d8f;
+  border-radius: 5px 40px 5px 40px;
+  animation: wave-leaf 3s infinite alternate ease-in-out;
+}
+
+.tulip .leaf-1 {
+  bottom: 80px;
+  left: -20px;
+  transform: rotate(-20deg);
+  animation-delay: 1s;
+}
+
+.tulip .leaf-2 {
+  bottom: 120px;
+  right: -20px;
+  transform: rotate(190deg);
+  animation-delay: 1.5s;
+}
+
+.tulip .flower-cup {
+  position: absolute;
+  top: -25px; /* Posiciona la flor */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 100px;
+  animation: bloom-tulip 1.5s 1s ease-out forwards;
+  opacity: 0;
+}
+
+/* Los 3 pétalos que forman el tulipán */
+.tulip .petal-1,
+.tulip .petal-2,
+.tulip .petal-3 {
+  position: absolute;
+  width: 40px;
+  height: 100px;
+  /* La forma clave del pétalo de tulipán */
+  border-radius: 40px 40px 10px 10px; 
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+}
+
+.tulip .petal-1 {
+  /* Pétalo central */
+  left: 20px;
+  z-index: 2;
+}
+.tulip .petal-2 {
+  /* Pétalo izquierdo */
+  left: 0;
+  transform: rotate(-25deg);
+  transform-origin: bottom center;
+  z-index: 1;
+}
+.tulip .petal-3 {
+  /* Pétalo derecho */
+  right: 0;
+  transform: rotate(25deg);
+  transform-origin: bottom center;
+  z-index: 1;
+}
+
+
+/* --- Estilos para los Corazones Flotantes --- */
+.heart-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0; /* Detrás de las flores y el texto */
+}
+
+.heart {
+  position: absolute;
+  bottom: -50px; /* Empieza fuera de la pantalla */
+  width: 20px;
+  height: 20px;
+  background-color: #f72585; /* Color fucsia */
+  opacity: 0;
+  animation-name: float-up;
+  animation-timing-function: ease-in;
+  animation-iteration-count: infinite;
+}
+
+/* El truco de CSS para formar un corazón con pseudo-elementos */
+.heart::before,
+.heart::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #f72585;
+  border-radius: 50%;
+}
+
+.heart::before {
+  top: -10px;
+  left: 0;
+}
+
+.heart::after {
+  top: 0;
+  left: 10px;
+}
+
+/* --- Animaciones de Flores y Corazones --- */
+
+/* Animación de crecimiento (igual que antes) */
+@keyframes grow {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+/* Animación de florecimiento (un poco más sutil) */
+@keyframes bloom-tulip {
+  from { opacity: 0; transform: translateX(-50%) scale(0.8); }
+  to { opacity: 1; transform: translateX(-50%) scale(1); }
+}
+
+/* Animación de hoja (más suave) */
+@keyframes wave-leaf {
+  from { transform: rotate(-20deg); }
+  to { transform: rotate(-10deg); }
+}
+
+/* Animación de corazones flotando */
+@keyframes float-up {
+  0% {
+    opacity: 0;
+    transform: translateY(0) rotate(0);
+  }
+  10% {
+    opacity: 0.7;
+  }
+  90% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0;
+    /* Mueve el corazón 100vh (toda la altura) hacia arriba y lo rota */
+    transform: translateY(-100vh) rotate(360deg);
+  }
+}
