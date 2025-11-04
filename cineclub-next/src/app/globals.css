@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --background: #080204;
@@ -7,13 +9,8 @@
     radial-gradient(circle at 50% 80%, rgba(160, 0, 40, 0.55), transparent 60%),
     #050103;
   --foreground: #f8e9ec;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -49,95 +46,55 @@ body::before {
   animation: filmScroll 24s linear infinite;
 }
 
-/* --- SE ELIMINÓ EL @layer utilities DE AQUÍ --- */
-
+/* CORRECCIÓN: Se eliminó el @layer utilities que causaba el error.
+  Estas son ahora clases CSS estándar.
+*/
 .animate-fade-in {
   animation: fadeIn 1s ease-in-out;
 }
-
 .animate-spotlight {
   animation: spotlight 6s ease-in-out infinite;
 }
-
 .animate-pop {
   animation: pop 0.8s ease-out both;
 }
-
 .animate-marquee {
   animation: marquee 18s linear infinite;
 }
-
 .shadow-cinema {
   box-shadow: 0 20px 60px rgba(255, 80, 120, 0.25), 0 0 30px rgba(255, 120, 160, 0.25);
 }
-
 .border-neon {
   box-shadow: 0 0 20px rgba(255, 80, 140, 0.45) inset, 0 0 32px rgba(255, 80, 140, 0.32);
 }
-
 .bg-cinema-grid {
   background-image: linear-gradient(rgba(255, 82, 119, 0.12) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 82, 119, 0.12) 1px, transparent 1px);
   background-size: 40px 40px;
 }
-
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes spotlight {
-  0% {
-    filter: drop-shadow(0 0 18px rgba(255, 128, 160, 0.3));
-  }
-  45% {
-    filter: drop-shadow(0 0 38px rgba(255, 196, 212, 0.45));
-  }
-  100% {
-    filter: drop-shadow(0 0 18px rgba(255, 128, 160, 0.3));
-  }
+  0% { filter: drop-shadow(0 0 18px rgba(255, 128, 160, 0.3)); }
+  45% { filter: drop-shadow(0 0 38px rgba(255, 196, 212, 0.45)); }
+  100% { filter: drop-shadow(0 0 18px rgba(255, 128, 160, 0.3)); }
 }
-
 @keyframes pop {
-  0% {
-    opacity: 0;
-    transform: scale(0.86) translateY(30px);
-  }
-  60% {
-    opacity: 1;
-    transform: scale(1.03) translateY(-6px);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
+  0% { opacity: 0; transform: scale(0.86) translateY(30px); }
+  60% { opacity: 1; transform: scale(1.03) translateY(-6px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
 }
-
 @keyframes marquee {
-  0% {
-    background-position-x: 0;
-  }
-  100% {
-    background-position-x: -600px;
-  }
+  0% { background-position-x: 0; }
+  100% { background-position-x: -600px; }
 }
-
 @keyframes filmScroll {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: -600px 0;
-  }
+  0% { background-position: 0 0; }
+  100% { background-position: -600px 0; }
 }
-
-/* --- Y SE ELIMINÓ EL CIERRE '}' DE AQUÍ --- */
+/* --- FIN DE LA CORRECCIÓN DE ERROR --- */
 
 
 .mf-button {
@@ -161,17 +118,14 @@ body::before {
   animation: neonPulse 2.6s ease-in-out infinite;
   z-index: 50;
 }
-
 .mf-button:hover {
   transform: translateY(-4px) scale(1.05);
   box-shadow: 0 0 40px rgba(255, 128, 160, 0.6), inset 0 0 16px rgba(255, 204, 216, 0.6);
   filter: brightness(1.1);
   cursor: pointer;
 }
-
 @keyframes neonPulse {
-  0%,
-  100% {
+  0%, 100% {
     box-shadow: 0 0 30px rgba(255, 80, 120, 0.4), inset 0 0 12px rgba(255, 164, 188, 0.5);
   }
   50% {
@@ -180,8 +134,115 @@ body::before {
 }
 
 
-/* --- INICIO: ESTILOS /sorpresa --- */
+/* --- INICIO: NUEVOS Estilos para Formularios y Tablas --- */
+@layer components {
+  .management-page-container {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
 
+  .form-card {
+    border: 1px solid rgba(225, 29, 72, 0.4);
+    background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.1), rgba(32, 0, 8, 0.45), rgba(18, 0, 5, 0.75));
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 20px 60px rgba(255, 80, 120, 0.25), 0 0 30px rgba(255, 120, 160, 0.25);
+    backdrop-filter: blur(4px);
+    animation: fadeIn 1s ease-in-out;
+  }
+  .form-title {
+    @apply text-3xl font-bold text-center text-rose-100 mb-8 tracking-wide;
+  }
+  .form-label {
+    @apply block text-sm font-medium text-rose-100/80 mb-1.5;
+  }
+  .form-input, .form-select {
+    @apply mt-1 block w-full px-4 py-2.5 border border-rose-500/30 bg-black/50 text-rose-100 rounded-xl shadow-sm transition-all duration-200;
+    @apply focus:border-rose-400 focus:ring-rose-400 focus:ring-2 focus:bg-black/60;
+    @apply placeholder:text-rose-100/30;
+  }
+  .form-input-disabled {
+    @apply bg-black/30 text-rose-100/40 border-rose-800/40 cursor-not-allowed;
+  }
+  .form-checkbox-container {
+    @apply flex items-center justify-center h-full pt-6 md:pt-8;
+  }
+  .form-checkbox {
+    @apply h-5 w-5 text-rose-500 border-rose-500/40 rounded bg-black/40 transition-all duration-200;
+    @apply focus:ring-rose-600 focus:ring-2;
+  }
+  .form-checkbox-label {
+    @apply ml-2.5 block text-sm font-medium text-rose-100/80;
+  }
+
+  /* Estilos para los BOTONES del formulario */
+  .form-button-container {
+    @apply flex flex-wrap justify-center gap-4 pt-6 border-t border-rose-900/40 mt-6;
+  }
+  .form-button {
+    @apply px-8 py-2.5 text-sm font-semibold uppercase tracking-widest text-white rounded-full shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg;
+  }
+  .form-button-add {
+    @apply bg-gradient-to-r from-rose-600 to-red-600 shadow-rose-500/30 hover:shadow-rose-500/40;
+  }
+  .form-button-edit {
+    @apply bg-gradient-to-r from-yellow-600 to-orange-600 shadow-yellow-500/30 hover:shadow-yellow-500/40;
+  }
+  .form-button-cancel {
+    @apply bg-gradient-to-r from-gray-600 to-gray-700 shadow-gray-500/30 hover:shadow-gray-500/40;
+  }
+
+  /* Estilos para la sección de la TABLA */
+  .table-card {
+    @apply border border-rose-900/40 bg-gradient-to-br from-white/5 via-[#200008]/30 to-[#120005]/60 p-6 rounded-2xl shadow-cinema backdrop-blur-sm animate-fade-in;
+    animation-delay: 0.2s;
+  }
+  .table-header-container {
+    @apply flex flex-col sm:flex-row justify-between sm:items-center mb-5 gap-4;
+  }
+  .table-title {
+    @apply text-2xl font-semibold text-rose-100;
+  }
+  .table-search-input {
+    @apply px-4 py-2.5 border border-rose-500/30 bg-black/50 text-rose-100 rounded-xl shadow-sm transition-all duration-200 w-full sm:w-72;
+    @apply focus:border-rose-400 focus:ring-rose-400 focus:ring-2 focus:bg-black/60;
+    @apply placeholder:text-rose-100/30;
+  }
+  .table-wrapper {
+    @apply overflow-x-auto rounded-lg border border-rose-900/40;
+  }
+  .table-element {
+    @apply min-w-full bg-black/20;
+  }
+  .table-head {
+    @apply bg-white/5 border-b border-rose-900/40;
+  }
+  .table-head-cell {
+    @apply px-6 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-rose-200/60;
+  }
+  .table-body {
+    @apply divide-y divide-rose-900/40;
+  }
+  .table-body-row {
+    @apply hover:bg-white/10 transition-colors duration-150;
+  }
+  .table-body-cell {
+    @apply px-6 py-4 whitespace-nowrap text-sm text-rose-100/90;
+  }
+  .table-action-button {
+    @apply text-lg transition-transform duration-150 hover:scale-125;
+  }
+  .table-action-edit {
+    @apply text-yellow-500 hover:text-yellow-400;
+  }
+  .table-action-delete {
+    @apply text-red-500 hover:text-red-400;
+  }
+}
+/* --- FIN: NUEVOS Estilos --- */
+
+
+/* --- INICIO: ESTILOS /sorpresa --- */
 .sorpresa-stage {
   display: flex;
   flex-direction: column;
@@ -192,7 +253,6 @@ body::before {
   overflow: hidden;
   position: relative;
 }
-
 .sorpresa-pedestal {
   position: relative;
   z-index: 10;
@@ -201,9 +261,7 @@ body::before {
   justify-content: center;
   transform: translateY(20%);
   animation: grow 2s ease-out 0.2s forwards;
-  /* El pedestal completo crece */
 }
-
 .sorpresa-message {
   position: relative;
   z-index: 10;
@@ -212,7 +270,6 @@ body::before {
   margin-top: 4rem;
   animation-delay: 1.5s;
 }
-
 .sorpresa-message p {
   font-family: 'Georgia', serif;
   font-size: 1.75rem;
@@ -220,7 +277,6 @@ body::before {
   text-shadow: 0 0 20px rgba(255, 168, 200, 0.7);
   line-height: 1.6;
 }
-
 .sorpresa-message span {
   display: block;
   margin-top: 2rem;
@@ -229,7 +285,6 @@ body::before {
   color: #ffb3c8;
   text-shadow: 0 0 15px rgba(255, 168, 200, 0.5);
 }
-
 .heart-container {
   position: absolute;
   top: 0;
@@ -239,7 +294,6 @@ body::before {
   overflow: hidden;
   z-index: 0;
 }
-
 .heart {
   position: absolute;
   bottom: -50px;
@@ -254,7 +308,6 @@ body::before {
   animation-duration: var(--duration);
   transform: scale(var(--scale));
 }
-
 .heart::before,
 .heart::after {
   content: '';
@@ -264,12 +317,10 @@ body::before {
   background-color: #f72585;
   border-radius: 50%;
 }
-
 .heart::before {
   top: -10px;
   left: 0;
 }
-
 .heart::after {
   top: 0;
   left: 10px;
@@ -280,37 +331,33 @@ body::before {
   position: relative;
   transform-origin: bottom center;
 }
-/* Posicionamiento del ramo */
 .tulip-1 {
   transform: translateX(20px) rotate(-15deg) scale(0.95);
   z-index: 10;
 }
 .tulip-2 {
-  transform: translateY(-20px) scale(1.05); /* El del centro más alto */
+  transform: translateY(-20px) scale(1.05);
   z-index: 12;
 }
 .tulip-3 {
   transform: translateX(-20px) rotate(15deg) scale(0.95);
   z-index: 11;
 }
-
-
 .tulip {
   position: relative;
   width: 15px;
   height: 300px;
   transform-origin: bottom center;
   animation: grow-tulip 2s ease-out forwards;
-  transform: scaleY(0); /* Empiezan sin altura */
+  animation-delay: var(--delay, 0s); /* Usa la variable de delay */
+  transform: scaleY(0);
 }
-
 .tulip .stem {
   width: 100%;
   height: 100%;
   background: linear-gradient(to right, #2a9d8f, #43b3a4);
   border-radius: 10px 10px 0 0;
 }
-
 .tulip .leaf {
   position: absolute;
   width: 35px;
@@ -320,21 +367,18 @@ body::before {
   animation: wave-leaf 3.5s infinite alternate ease-in-out;
   box-shadow: inset 0 0 8px rgba(0,0,0,0.2);
 }
-
 .tulip .leaf-1 {
   bottom: 80px;
   left: -25px;
   transform: rotate(-25deg);
-  animation-delay: 1.2s;
+  animation-delay: calc(var(--delay, 0s) + 1.2s);
 }
-
 .tulip .leaf-2 {
   bottom: 120px;
   right: -25px;
   transform: rotate(200deg);
-  animation-delay: 1.7s;
+  animation-delay: calc(var(--delay, 0s) + 1.7s);
 }
-
 .tulip .flower-cup {
   position: absolute;
   top: -30px;
@@ -344,9 +388,9 @@ body::before {
   transform-origin: bottom center;
   transform: translateX(-50%) scale(0.8);
   animation: bloom-tulip 1.8s 1s ease-out forwards;
+  animation-delay: calc(var(--delay, 0s) + 0.5s); /* Florece después de crecer */
   opacity: 0;
 }
-
 .tulip .petal {
   position: absolute;
   width: 45px;
@@ -354,8 +398,6 @@ body::before {
   border-radius: 40px 40px 20px 20px;
   box-shadow: inset 0 0 15px rgba(0,0,0,0.15);
 }
-
-/* Colores y degradados */
 .petal-back {
   background: linear-gradient(to top, var(--petal-color-dark), var(--petal-color-mid));
 }
@@ -365,8 +407,6 @@ body::before {
 .petal-center {
   background: linear-gradient(to top, var(--petal-color-light), #fff);
 }
-
-/* Posicionamiento y Z-index */
 .petal-back-1 {
   left: 10px;
   transform: rotate(-20deg);
@@ -377,7 +417,6 @@ body::before {
   transform: rotate(20deg);
   z-index: 1;
 }
-
 .petal-1 {
   left: -5px;
   transform: rotate(-28deg);
@@ -388,7 +427,6 @@ body::before {
   transform: rotate(28deg);
   z-index: 2;
 }
-
 .petal-center {
   left: 50%;
   transform: translateX(-50%) rotate(0deg) scale(0.9);
@@ -405,62 +443,26 @@ body::before {
 }
 /* --- FIN: ESTILOS RAMO DE TULIPANES --- */
 
-
 @keyframes grow {
-  from {
-    transform: translateY(20%);
-  }
-  to {
-    transform: translateY(0);
-  }
+  from { transform: translateY(20%); }
+  to { transform: translateY(0); }
 }
-
-/* Animación de crecimiento individual para cada tulipán */
 @keyframes grow-tulip {
-  from {
-    transform: scaleY(0);
-  }
-  to {
-    transform: scaleY(1);
-  }
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
 }
-
-
 @keyframes bloom-tulip {
-  from {
-    opacity: 0;
-    transform: translateX(-50%) scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(-50%) scale(1);
-  }
+  from { opacity: 0; transform: translateX(-50%) scale(0.8); }
+  to { opacity: 1; transform: translateX(-50%) scale(1); }
 }
-
 @keyframes wave-leaf {
-  from {
-    transform: rotate(-25deg);
-  }
-  to {
-    transform: rotate(-15deg);
-  }
+  from { transform: rotate(-25deg); }
+  to { transform: rotate(-15deg); }
 }
-
 @keyframes float-up {
-  0% {
-    opacity: 0;
-    transform: translateY(0) rotate(0) translateX(0);
-  }
-  10% {
-    opacity: 0.7;
-  }
-  90% {
-    opacity: 0.7;
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-100vh) rotate(360deg) translateX(var(--drift));
-  }
+  0% { opacity: 0; transform: translateY(0) rotate(0) translateX(0); }
+  10% { opacity: 0.7; }
+  90% { opacity: 0.7; }
+  100% { opacity: 0; transform: translateY(-100vh) rotate(360deg) translateX(var(--drift)); }
 }
-
 /* --- FIN: ESTILOS /sorpresa --- */
