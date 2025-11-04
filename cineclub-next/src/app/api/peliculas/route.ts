@@ -1,16 +1,16 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/../prisma/lib';
 
-// GET (Listar Películas con Joins)
+// GET (Listar Películas)
+// Basado en listarPelicula()
 export async function GET() {
   try {
-    // "Traducción" de listarPelicula()
     const peliculas = await prisma.tblPelicula.findMany({
-      include: {
-        Productora: true,
-        Pais: true,
-        Director: true,
-        Empleado: true,
+      include: { // Reemplaza todos los joins
+        Productora: { select: { Nombre: true } },
+        Pais: { select: { Nombre: true } },
+        Director: { select: { Nombre: true } },
+        Empleado: { select: { Nombre: true } },
       },
       orderBy: { Codigo: 'asc' },
     });
@@ -21,40 +21,57 @@ export async function GET() {
 }
 
 // POST (Agregar Película)
-// "Traducción" de tu método Post() y Agregar()
+// Basado en Agregar()
 export async function POST(request: Request) {
   try {
-    const data = await request.json(); // Obtiene los datos (tu tblPelicula)
-    
-    // Nota: ¡Prisma maneja el ID autoincremental automáticamente!
-    // No necesitamos buscar el idmax como en clsOpePelicula.cs
-    const nuevaPelicula = await prisma.tblPelicula.create({
-      data: data,
-    });
-    return NextResponse.json(nuevaPelicula, { status: 201 }); // 201 = Creado
+    const data = await request.json();
+    const nuevaPelicula = await prisma.tblPelicula.create({ data });
+    return NextResponse.json(nuevaPelicula, { status: 201 });
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: 'Error al agregar la película' }, { status: 500 });
   }
 }
 
-
+// PUT (Modificar Película)
+// Basado en Modificar()
 export async function PUT(request: Request) {
   try {
     const data = await request.json();
-    const { Codigo, ...datosSinCodigo } = data; 
+    const { Codigo, ...datosSinCodigo } = data;
 
     if (!Codigo) {
       return NextResponse.json({ error: 'Código es requerido' }, { status: 400 });
     }
 
     const peliculaActualizada = await prisma.tblPelicula.update({
-      where: { Codigo: Number(Codigo) }, 
-      data: datosSinCodigo,           
+      where: { Codigo: Number(Codigo) },
+      data: datosSinCodigo,
     });
     return NextResponse.json(peliculaActualizada);
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: 'Error al modificar la película' }, { status: 500 });
+  }
+}
+
+// DELETE (Eliminar Película)
+export async function DELETE(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const codigo = searchParams.get('id');
+
+    if (!codigo) {
+      return NextResponse.json({ error: 'Código (id) es requerido' }, { status: 400 });
+    }
+
+    await prisma.tblPelicula.delete({
+      where: { Codigo: Number(codigo) },
+    });
+    
+    return new NextResponse(null, { status: 204 });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({ error: 'Error al eliminar la película' }, { status: 500 });
   }
 }

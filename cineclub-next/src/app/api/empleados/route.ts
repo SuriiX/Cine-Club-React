@@ -63,3 +63,30 @@ export async function PUT(request: Request) {
     return NextResponse.json({ error: 'Error al modificar el empleado' }, { status: 500 });
   }
 }
+// -----------------------------------------------------------------
+// ¡NUEVO! MÉTODO DELETE (Eliminar Empleado)
+// -----------------------------------------------------------------
+export async function DELETE(request: Request) {
+  try {
+    // 1. Obtenemos la URL y sus parámetros de búsqueda
+    const { searchParams } = new URL(request.url);
+    const codigo = searchParams.get('id'); // Buscamos el parámetro 'id'
+
+    if (!codigo) {
+      return NextResponse.json({ error: 'Código (id) es requerido' }, { status: 400 });
+    }
+
+    // 2. Usamos Prisma para eliminar el registro
+    await prisma.tblEmpleado.delete({
+      where: { Codigo: Number(codigo) }, // Busca por el Código
+    });
+    
+    // 3. Devolvemos una respuesta de éxito (204 = Sin Contenido, éxito)
+    return new NextResponse(null, { status: 204 });
+
+  } catch (error) {
+    console.error(error);
+    // Manejamos el error (ej. si el empleado no existe)
+    return NextResponse.json({ error: 'Error al eliminar el empleado' }, { status: 500 });
+  }
+}
