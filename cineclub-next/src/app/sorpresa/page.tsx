@@ -66,25 +66,15 @@ export default function SorpresaPage() {
     <div className="sorpresa-stage">
       <FloatingHearts />
 
-      <div className="sorpresa-card animate-fade-in">
-        <div className="sorpresa-pedestal">
-          <Tulip />
-        </div>
-
-        <div className="sorpresa-message">
-          <p>
-            "No te vi hoy pero... Se que estas hermosa"
-            <br />
-            <span className="sorpresa-signature">Att: O</span>
-          </p>
-        </div>
       <div className="sorpresa-pedestal">
         <Tulip />
       </div>
 
       <div className="sorpresa-message animate-fade-in">
-        <p>"No te vi hoy pero... Se que estas hermosa"</p>
-        <span>MF</span>
+        {/* CORRECCIÓN: Mensaje actualizado */}
+        <p>"No te he visto hoy pero estoy seguro que te ves muy linda."</p>
+        {/* CORRECCIÓN: Firma actualizada */}
+        <span>Att: O</span>
       </div>
     </div>
   );

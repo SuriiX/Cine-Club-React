@@ -30,7 +30,7 @@ export default function RootLayout({
 
           <Link
             href="/sorpresa"
-            className="mf-sigil"
+            className="mf-button"
             aria-label="Momentos Felices"
           >
             MF
