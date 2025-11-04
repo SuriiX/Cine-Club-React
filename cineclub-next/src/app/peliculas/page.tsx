@@ -53,14 +53,14 @@ export default function PeliculasPage() {
 
   // --- Recolectar datos del formulario (helper) ---
   const recolectarDatos = () => {
-    if (!nombre || !fechaEstreno || !productoraId || !paisId || !directorId || !empleadoId) {
-      setToast({ message: 'Todos los campos son requeridos.', type: 'error' });
+    if (!nombre || !fechaEstreno || !productoraId || !paisId || !empleadoId) {
+      setToast({ message: 'Nombre, Fecha, Productora, País y Empleado son requeridos.', type: 'error' });
       return null;
     }
     return {
       Nombre: nombre, Fecha_Estreno: new Date(fechaEstreno),
       Id_Productora: parseInt(productoraId), Id_Pais: parseInt(paisId),
-      Id_Director: directorId ? parseInt(directorId) : null, // Permitir nulo
+      Id_Director: directorId ? parseInt(directorId) : null, // Director es opcional
       Id_Empleado: parseInt(empleadoId),
     };
   };
@@ -154,7 +154,7 @@ export default function PeliculasPage() {
           <div>
             <label htmlFor="cboDirector" className="form-label">Director:</label>
             <select id="cboDirector" value={directorId} onChange={(e) => setDirectorId(e.target.value)} className="form-select">
-              <option value="">-- Seleccione --</option>
+              <option value="">-- Ninguno --</option> {/* Permitir no seleccionar director */}
               {directores.map((dir) => (<option key={dir.Codigo} value={dir.Codigo}>{dir.Nombre}</option>))}
             </select>
           </div>
@@ -226,7 +226,7 @@ export default function PeliculasPage() {
                   <td className="table-body-cell">{pelicula.Fecha_Estreno ? new Date(pelicula.Fecha_Estreno).toLocaleDateString() : ''}</td>
                   <td className="table-body-cell">{pelicula.Productora?.Nombre}</td>
                   <td className="table-body-cell">{pelicula.Pais?.Nombre}</td>
-                  <td className="table-body-cell">{pelicula.Director?.Nombre}</td>
+                  <td className="table-body-cell">{pelicula.Director?.Nombre || 'N/A'}</td>
                   <td className="table-body-cell">{pelicula.Empleado?.Nombre}</td>
                 </tr>
               ))}
