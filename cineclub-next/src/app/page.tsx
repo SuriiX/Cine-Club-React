@@ -138,6 +138,9 @@ export default function HomePage() {
       </section>
 
       <section className="space-y-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+        <div className="space-y-2">
+          <h2 className="text-3xl font-semibold text-rose-50">Acceso rápido</h2>
+          <p className="text-sm text-rose-100/70">Gestiona cada área clave con un par de clics y efectos que deslumbran.</p>
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <h2 className="text-3xl font-semibold text-rose-50">Acceso rápido</h2>

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import './globals.css';
 import Sidebar from '@/components/Sidebar'; // Importamos el Sidebar
 
@@ -26,6 +27,14 @@ export default function RootLayout({
               {children}
             </div>
           </main>
+
+          <Link
+            href="/sorpresa"
+            className="mf-sigil"
+            aria-label="Momentos Felices"
+          >
+            MF
+          </Link>
 
         </div>
       </body>
