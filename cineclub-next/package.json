@@ -3,18 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-      "dev": "next dev",
-      "build": "next build",
-      "postinstall": "npx prisma migrate deploy && npx prisma db seed",
-      "start": "next start",
-      "lint": "next lint"
-    },
+    "dev": "next dev",
+    "build": "next build",
+    "postinstall": "DATABASE_URL=$DATABASE_URL_MIGRATE npx prisma migrate deploy && npx prisma db seed",
+    "start": "next start",
+    "lint": "next lint"
+  },
   "dependencies": {
     "@prisma/client": "^6.18.0",
     "next": "16.0.1",
     "react": "19.2.0",
-    "ts-node": "^10.9.2",
-    "react-dom": "19.2.0"
+    "react-dom": "19.2.0",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
