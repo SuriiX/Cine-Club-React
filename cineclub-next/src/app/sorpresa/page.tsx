@@ -1,38 +1,61 @@
 'use client';
 
-// --- Componente para los Corazones Flotantes ---
+import { CSSProperties, useMemo } from 'react';
+
+type HeartData = {
+  left: string;
+  delay: string;
+  duration: string;
+  scale: number;
+  drift: string;
+};
+
 function FloatingHearts() {
+  const hearts = useMemo<HeartData[]>(
+    () =>
+      Array.from({ length: 18 }, () => {
+        const scale = Number((Math.random() * 0.4 + 0.7).toFixed(2));
+        const drift = `${(Math.random() * 70 - 35).toFixed(1)}px`;
+        return {
+          left: `${Math.random() * 100}%`,
+          delay: `${(Math.random() * 4).toFixed(2)}s`,
+          duration: `${(Math.random() * 3 + 6).toFixed(2)}s`,
+          scale,
+          drift,
+        };
+      }),
+    []
+  );
+
   return (
-    <div className="heart-container">
-      {/* Generamos 15 corazones con posiciones y animaciones aleatorias */}
-      {[...Array(15)].map((_, i) => (
-        <div 
-          className="heart" 
-          key={i} 
-          style={{ 
-            left: `${Math.random() * 100}%`, // Posición horizontal aleatoria
-            animationDelay: `${Math.random() * 5}s`, // Retraso de inicio aleatorio
-            animationDuration: `${Math.random() * 3 + 5}s` // Duración aleatoria (entre 5s y 8s)
-          }}
-        ></div>
+    <div className="heart-container" aria-hidden="true">
+      {hearts.map((heart, index) => (
+        <span
+          key={`heart-${index}`}
+          className="heart"
+          style={{
+            left: heart.left,
+            '--delay': heart.delay,
+            '--duration': heart.duration,
+            '--scale': heart.scale.toString(),
+            '--drift': heart.drift,
+          } as CSSProperties}
+        />
       ))}
     </div>
   );
 }
 
-// --- Componente para el Tulipán ---
-function Tulipan({ delay, color }: { delay: number; color: string }) {
+function Tulip() {
   return (
-    // Cada tulipán tiene un retraso de animación
-    <div className="tulip" style={{ animationDelay: `${delay}s` }}>
-      <div className="stem" /> {/* Tallo */}
-      <div className="leaf leaf-1" /> {/* Hoja 1 */}
-      <div className="leaf leaf-2" /> {/* Hoja 2 */}
+    <div className="tulip">
+      <div className="stem" />
+      <div className="leaf leaf-1" />
+      <div className="leaf leaf-2" />
       <div className="flower-cup">
-        {/* Los 3 pétalos que forman la flor */}
-        <div className="petal-1" style={{ backgroundColor: color }} />
-        <div className="petal-2" style={{ backgroundColor: color }} />
-        <div className="petal-3" style={{ backgroundColor: color }} />
+        <div className="petal-1" style={{ '--petal-color': '#ff8fab' } as CSSProperties} />
+        <div className="petal-2" style={{ '--petal-color': '#f72585' } as CSSProperties} />
+        <div className="petal-3" style={{ '--petal-color': '#ff8fab' } as CSSProperties} />
       </div>
     </div>
   );
@@ -40,29 +63,21 @@ function Tulipan({ delay, color }: { delay: number; color: string }) {
 
 export default function SorpresaPage() {
   return (
-    // Cambiamos el fondo a un degradado de rosa/salmón más suave
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-pink-50 to-rose-100 overflow-hidden relative">
-      
-      {/* ¡NUEVO! Añadimos el contenedor de corazones */}
+    <div className="sorpresa-stage">
       <FloatingHearts />
 
-      {/* El Ramo de Tulipanes */}
-      {/* Usamos z-10 para que las flores estén por encima de los corazones */}
-      <div className="flex items-end justify-center h-96 relative z-10">
-        <Tulipan delay={0.2} color="#f72585" /> {/* Tulipán Fucsia */}
-        <Tulipan delay={0} color="#ffafcc" />   {/* Tulipán Rosa Claro */}
-        <Tulipan delay={0.4} color="#f8961e" /> {/* Tulipán Naranja */}
-      </div>
+      <div className="sorpresa-card animate-fade-in">
+        <div className="sorpresa-pedestal">
+          <Tulip />
+        </div>
 
-      {/* El Mensaje Especial */}
-      {/* Usamos z-10 para que el mensaje esté por encima de los corazones */}
-      <div className="text-center p-8 mt-12 animate-fade-in relative z-10">
-        <p className="text-3xl md:text-4xl font-serif text-gray-700 leading-relaxed shadow-sm">
-          "No te he visto hoy pero estoy seguro que te ves muy linda."
-        </p>
-        <p className="text-3xl font-serif text-gray-800 mt-6">
-          Att: O
-        </p>
+        <div className="sorpresa-message">
+          <p>
+            "No te vi hoy pero... Se que estas hermosa"
+            <br />
+            <span className="sorpresa-signature">Att: O</span>
+          </p>
+        </div>
       </div>
     </div>
   );
