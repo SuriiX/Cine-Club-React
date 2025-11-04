@@ -1,9 +1,7 @@
 datasource db {
-  // Escribimos "postgresql" directamente, como pide el error.
-  provider = "postgresql" 
-
-  // Mantenemos la URL como una variable de entorno.
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL") 
+  directUrl = env("DATABASE_URL_UNPOOLED") 
 }
 
 // 2. Configura el Generador de Cliente
