@@ -1,98 +1,72 @@
-// 1. Configura tu Conexión
-// Cambia "postgresql" por "mysql", "sqlserver", etc., según tu base de datos.
-// La URL se lee desde un archivo .env que crearemos.
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 // 2. Configura el Generador de Cliente
-// Esto le dice a Prisma que genere el cliente de TypeScript
 generator client {
   provider = "prisma-client-js"
 }
 
 // 3. Modelos de "Catálogo" (Tablas simples)
-// Estas son las tablas que llenan tus combos (cboGenero, cboTipoDoc, etc.)
-
 model tblGenero {
-  Codigo Int    @id @default(autoincrement())
-  Nombre String?
-
-  // Relaciones inversas (qué tablas usan este género)
+  Codigo      Int           @id @default(autoincrement())
+  Nombre      String?
   Empleados   tblEmpleado[]
   Directores  tblDirector[]
 }
 
 model tblPai {
-  Codigo Int    @id @default(autoincrement())
-  Nombre String?
-
-  // Relaciones inversas
+  Codigo     Int           @id @default(autoincrement())
+  Nombre     String?
   Peliculas  tblPelicula[]
   Directores tblDirector[]
 }
 
 model tblTipoDoc {
-  Codigo Int    @id @default(autoincrement())
-  Nombre String?
-
-  // Relaciones inversas
-  Empleados  tblEmpleado[]
-  Directores tblDirector[]
+  Codigo      Int           @id @default(autoincrement())
+  Nombre      String?
+  Empleados   tblEmpleado[]
+  Directores  tblDirector[]
 }
 
 model tblTipoTelefono {
-  Codigo Int    @id @default(autoincrement())
+  Codigo Int     @id @default(autoincrement())
   Nombre String?
-  // (Aquí iría la relación inversa si otra tabla la usa)
 }
 
 model tblRol {
-  Codigo Int    @id @default(autoincrement())
+  Codigo Int     @id @default(autoincrement())
   Nombre String?
-  // (Aquí iría la relación inversa si otra tabla la usa)
 }
 
 model tblEstado {
-  Codigo Int    @id @default(autoincrement())
+  Codigo Int     @id @default(autoincrement())
   Nombre String?
-  // (Aquí iría la relación inversa si otra tabla la usa)
 }
 
 model tblCiudad {
-  Codigo Int    @id @default(autoincrement())
+  Codigo Int     @id @default(autoincrement())
   Nombre String?
-  // (Aquí iría la relación inversa si otra tabla la usa)
 }
 
 // 4. Modelos de "Datos" (Tablas complejas con relaciones)
-
 model tblEmpleado {
   Codigo           Int       @id @default(autoincrement())
   Nombre           String?
-  Fecha_Nacimiento DateTime? @db.Date // Deducido de frmEmpleado.html
-  NroDoc           String?            // Deducido de frmEmpleado.html (String es mejor para Nros Doc)
-  Salario          Decimal?           // Deducido de frmEmpleado.html (Decimal para dinero)
-  Activo           Boolean?           // Deducido de frmEmpleado.html
+  Fecha_Nacimiento DateTime?
+  NroDoc           String?
+  Salario          Decimal?
+  Activo           Boolean?
 
-  // --- Relaciones (FKs) ---
-  
-  // Relación con tblTipoDoc
-  Id_TipoDoc Int?
-  TipoDoc    tblTipoDoc? @relation(fields: [Id_TipoDoc], references: [Codigo])
-
-  // Relación con tblGenero
-  Id_Genero Int?
-  Genero    tblGenero?  @relation(fields: [Id_Genero], references: [Codigo])
-
-  // Relación de Supervisor (Auto-referencia)
-  // Deducido de cboEmpleado en frmEmpleado.html
+  Id_TipoDoc  Int?
+  TipoDoc     tblTipoDoc? @relation(fields: [Id_TipoDoc], references: [Codigo])
+  Id_Genero   Int?
+  Genero      tblGenero?  @relation(fields: [Id_Genero], references: [Codigo])
   Id_Supervisor Int?
   Supervisor    tblEmpleado?  @relation("Supervisados", fields: [Id_Supervisor], references: [Codigo])
-  Supervisados  tblEmpleado[] @relation("Supervisados") // Lista de empleados que este supervisa
+  Supervisados  tblEmpleado[] @relation("Supervisados")
 
-  // --- Relaciones Inversas (Dónde se usa este empleado) ---
   Peliculas   tblPelicula[]
   Directores  tblDirector[]
   Productoras tblProductora[]
@@ -102,56 +76,37 @@ model tblDirector {
   Codigo Int    @id @default(autoincrement())
   Nombre String?
 
-  // --- Relaciones (FKs) ---
-  
-  // Deducido de clsOpeDirector.cs
-  Id_Pais Int?
-  Pais    tblPai? @relation(fields: [Id_Pais], references: [Codigo])
-
+  Id_Pais     Int?
+  Pais        tblPai?      @relation(fields: [Id_Pais], references: [Codigo])
   Id_Empleado Int?
   Empleado    tblEmpleado? @relation(fields: [Id_Empleado], references: [Codigo])
-
-  Id_Genero Int?
-  Genero    tblGenero? @relation(fields: [Id_Genero], references: [Codigo])
-
-  Id_TipoDoc Int?
-  TipoDoc    tblTipoDoc? @relation(fields: [Id_TipoDoc], references: [Codigo])
-
-  // --- Relaciones Inversas ---
-  Peliculas tblPelicula[]
+  Id_Genero   Int?
+  Genero      tblGenero?   @relation(fields: [Id_Genero], references: [Codigo])
+  Id_TipoDoc  Int?
+  TipoDoc     tblTipoDoc?  @relation(fields: [Id_TipoDoc], references: [Codigo])
+  Peliculas   tblPelicula[]
 }
 
 model tblProductora {
   Codigo Int    @id @default(autoincrement())
   Nombre String?
 
-  // --- Relaciones (FKs) ---
-  
-  // Deducido de clsOpeProductora.cs
   Id_Empleado Int?
   Empleado    tblEmpleado? @relation(fields: [Id_Empleado], references: [Codigo])
-
-  // --- Relaciones Inversas ---
-  Peliculas tblPelicula[]
+  Peliculas   tblPelicula[]
 }
 
 model tblPelicula {
   Codigo        Int       @id @default(autoincrement())
   Nombre        String?
-  Fecha_Estreno DateTime? @db.Date // Deducido de clsOpePelicula.cs
+  Fecha_Estreno DateTime?
 
-  // --- Relaciones (FKs) ---
-  
-  // Deducido de clsOpePelicula.cs
   Id_Productora Int?
   Productora    tblProductora? @relation(fields: [Id_Productora], references: [Codigo])
-
-  Id_Pais Int?
-  Pais    tblPai? @relation(fields: [Id_Pais], references: [Codigo])
-
-  Id_Director Int?
-  Director    tblDirector? @relation(fields: [Id_Director], references: [Codigo])
-
-  Id_Empleado Int?
-  Empleado    tblEmpleado? @relation(fields: [Id_Empleado], references: [Codigo])
+  Id_Pais       Int?
+  Pais          tblPai?        @relation(fields: [Id_Pais], references: [Codigo])
+  Id_Director   Int?
+  Director      tblDirector?   @relation(fields: [Id_Director], references: [Codigo])
+  Id_Empleado   Int?
+  Empleado      tblEmpleado?   @relation(fields: [Id_Empleado], references: [Codigo])
 }

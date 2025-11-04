@@ -1,0 +1,65 @@
+import { NextResponse } from 'next/server';
+import prisma from '@/../prisma/lib';
+
+// GET (Listar Empleados con sus relaciones)
+export async function GET() {
+  try {
+    // Esto reemplaza tu JOIN en clsOpeEmpleado.cs
+    const empleados = await prisma.tblEmpleado.findMany({
+      include: {
+        Genero: true,  // Incluye el objeto Genero relacionado
+        TipoDoc: true, // Incluye el objeto TipoDoc relacionado
+        Supervisor: {  // Incluimos solo nombre y código del supervisor
+          select: { Codigo: true, Nombre: true }
+        },
+      },
+      orderBy: { Codigo: 'asc' },
+    });
+    return NextResponse.json(empleados);
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({ error: 'Error al obtener empleados' }, { status: 500 });
+  }
+}
+
+// POST (Agregar Empleado)
+export async function POST(request: Request) {
+  try {
+    const data = await request.json();
+    
+    const nuevoEmpleado = await prisma.tblEmpleado.create({
+      data: data,
+    });
+    return NextResponse.json(nuevoEmpleado, { status: 201 }); // 201 = Creado
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({ error: 'Error al agregar el empleado' }, { status: 500 });
+  }
+}
+
+// -----------------------------------------------------------------
+// ¡NUEVO! MÉTODO PUT (Modificar Empleado)
+// -----------------------------------------------------------------
+export async function PUT(request: Request) {
+  try {
+    const data = await request.json();
+    
+    // Extraemos el Código para usarlo en el 'where'
+    // y el resto de datos para el 'data'
+    const { Codigo, ...datosSinCodigo } = data;
+
+    if (!Codigo) {
+      return NextResponse.json({ error: 'Código es requerido' }, { status: 400 });
+    }
+
+    const empleadoActualizado = await prisma.tblEmpleado.update({
+      where: { Codigo: Number(Codigo) }, // Busca por el Código
+      data: datosSinCodigo,           // Actualiza el resto de los datos
+    });
+    
+    return NextResponse.json(empleadoActualizado);
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json({ error: 'Error al modificar el empleado' }, { status: 500 });
+  }
+}
