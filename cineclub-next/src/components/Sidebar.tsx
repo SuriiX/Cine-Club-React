@@ -15,9 +15,9 @@ const navLinks = [
   { nombre: 'Empleados', href: '/empleados', icon: <IconEmpleados /> },
   { nombre: 'Películas', href: '/peliculas', icon: <IconPeliculas /> },
   { nombre: 'Directores', href: '/directores', icon: <IconDirectores /> },
-  // ¡NUEVO! Enlace a la página de catálogos
-  { nombre: 'Géneros', href: '/catalogos/generos', icon: <IconCatalogos /> },
+  { nombre: 'Géneros', href: '/generos', icon: <IconCatalogos /> },
 ];
+
 
 export default function Sidebar() {
   const pathname = usePathname();
