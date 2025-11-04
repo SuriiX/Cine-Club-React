@@ -66,6 +66,18 @@ export default function SorpresaPage() {
     <div className="sorpresa-stage">
       <FloatingHearts />
 
+      <div className="sorpresa-card animate-fade-in">
+        <div className="sorpresa-pedestal">
+          <Tulip />
+        </div>
+
+        <div className="sorpresa-message">
+          <p>
+            "No te vi hoy pero... Se que estas hermosa"
+            <br />
+            <span className="sorpresa-signature">Att: O</span>
+          </p>
+        </div>
       <div className="sorpresa-pedestal">
         <Tulip />
       </div>

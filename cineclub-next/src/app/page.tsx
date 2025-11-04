@@ -91,6 +91,7 @@ const collections = [
 export default function HomePage() {
   return (
     <div className="space-y-16">
+      <section className="relative overflow-hidden rounded-3xl border border-rose-900/50 bg-gradient-to-br from-[#200008]/90 via-[#31010c]/85 to-[#120005]/95 px-8 py-12 shadow-cinema animate-fade-in sm:px-12">
       
       {/* --- Sección 1: Banner Principal (sin cambios) --- */}
       <section className="relative overflow-hidden rounded-3xl border border-rose-900/50 bg-gradient-to-br from-[#200008]/90 via-[#31010c]/85 to-[#120005]/95 px-8 py-12 shadow-cinema animate-fade-in sm:px-12">
@@ -143,6 +144,10 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="space-y-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+        <div className="space-y-2">
+          <h2 className="text-3xl font-semibold text-rose-50">Acceso rápido</h2>
+          <p className="text-sm text-rose-100/70">Gestiona cada área clave con un par de clics y efectos que deslumbran.</p>
       {/* --- Sección 2: Acceso Rápido (CORREGIDA) --- */}
       <section className="space-y-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
         
@@ -168,6 +173,7 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="relative overflow-hidden rounded-3xl border border-rose-900/40 bg-gradient-to-br from-white/10 via-[#200008]/45 to-[#120005]/75 p-8 shadow-cinema backdrop-blur animate-fade-in" style={{ animationDelay: '0.35s' }}>
       {/* --- Sección 3: Colecciones (sin cambios) --- */}
       <section className="relative overflow-hidden rounded-3xl border border-rose-900/40 bg-gradient-to-br from-white/10 via-[#200008]/45 to-[#120005]/75 p-8 shadow-cinema backdrop-blur animate-fade-in" style={{ animationDelay: '0.35s' }}>
         {/* ... (contenido de colecciones) ... */}
@@ -204,6 +210,7 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="relative overflow-hidden rounded-3xl border border-rose-900/50 bg-black/40 p-8 shadow-cinema backdrop-blur animate-fade-in" style={{ animationDelay: '0.55s' }}>
       {/* --- Sección 4: Destacados (sin cambios) --- */}
       <section className="relative overflow-hidden rounded-3xl border border-rose-900/50 bg-black/40 p-8 shadow-cinema backdrop-blur animate-fade-in" style={{ animationDelay: '0.55s' }}>
         {/* ... (contenido de destacados) ... */}
@@ -211,6 +218,7 @@ export default function HomePage() {
         <div className="relative grid gap-10 md:grid-cols-[1.1fr,0.9fr]">
           <div className="space-y-6">
             <h2 className="text-3xl font-semibold text-rose-50">Una interfaz hecha para brillar</h2>
+            <p className="text-sm leading-relaxed text-rose-100/75">
             <p className="text-sm leading-relaxed text-rose-100/775">
               El nuevo look de CineClub mezcla tonos rojizos intensos, texturas cinematográficas y animaciones envolventes que elevan cada interacción.
             </p>
