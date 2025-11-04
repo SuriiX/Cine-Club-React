@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postinstall": "DATABASE_URL=$DATABASE_URL_MIGRATE npx prisma migrate deploy && DATABASE_URL=$DATABASE_URL_MIGRATE npx prisma db seed",
+    "postinstall": "npx prisma migrate deploy && npx prisma db seed",
     "start": "next start",
     "lint": "next lint"
   },
