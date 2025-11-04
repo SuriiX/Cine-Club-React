@@ -78,6 +78,13 @@ export default function SorpresaPage() {
             <span className="sorpresa-signature">Att: O</span>
           </p>
         </div>
+      <div className="sorpresa-pedestal">
+        <Tulip />
+      </div>
+
+      <div className="sorpresa-message animate-fade-in">
+        <p>"No te vi hoy pero... Se que estas hermosa"</p>
+        <span>MF</span>
       </div>
     </div>
   );

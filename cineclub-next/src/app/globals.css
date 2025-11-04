@@ -503,5 +503,145 @@ body::before {
 
   .sorpresa-message p {
     font-size: clamp(1.5rem, 2vw + 1rem, 2.15rem);
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url('/images/film-strip.svg');
+  background-size: 600px 160px;
+  background-repeat: repeat;
+  opacity: 0.08;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  animation: filmScroll 24s linear infinite;
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 1s ease-in-out;
+  }
+
+  .animate-spotlight {
+    animation: spotlight 6s ease-in-out infinite;
+  }
+
+  .animate-pop {
+    animation: pop 0.8s ease-out both;
+  }
+
+  .animate-marquee {
+    animation: marquee 18s linear infinite;
+  }
+
+  .shadow-cinema {
+    box-shadow: 0 20px 60px rgba(255, 80, 120, 0.25), 0 0 30px rgba(255, 120, 160, 0.25);
+  }
+
+  .border-neon {
+    box-shadow: 0 0 20px rgba(255, 80, 140, 0.45) inset, 0 0 32px rgba(255, 80, 140, 0.32);
+  }
+
+  .bg-cinema-grid {
+    background-image: linear-gradient(rgba(255, 82, 119, 0.12) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 82, 119, 0.12) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes spotlight {
+    0% {
+      filter: drop-shadow(0 0 18px rgba(255, 128, 160, 0.3));
+    }
+    45% {
+      filter: drop-shadow(0 0 38px rgba(255, 196, 212, 0.45));
+    }
+    100% {
+      filter: drop-shadow(0 0 18px rgba(255, 128, 160, 0.3));
+    }
+  }
+
+  @keyframes pop {
+    0% {
+      opacity: 0;
+      transform: scale(0.86) translateY(30px);
+    }
+    60% {
+      opacity: 1;
+      transform: scale(1.03) translateY(-6px);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  @keyframes marquee {
+    0% {
+      background-position-x: 0;
+    }
+    100% {
+      background-position-x: -600px;
+    }
+  }
+
+  @keyframes filmScroll {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: -600px 0;
+    }
+  }
+}
+
+.mf-button {
+  position: absolute;
+  bottom: 32px;
+  right: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  font-family: 'Cinzel', 'Georgia', serif;
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffe9ef;
+  background: linear-gradient(135deg, rgba(255, 80, 120, 0.85), rgba(120, 0, 40, 0.95));
+  border-radius: 9999px;
+  text-shadow: 0 0 14px rgba(255, 196, 212, 0.85);
+  box-shadow: 0 0 30px rgba(255, 80, 120, 0.4), inset 0 0 12px rgba(255, 164, 188, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+  animation: neonPulse 2.6s ease-in-out infinite;
+}
+
+.mf-button:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 0 40px rgba(255, 128, 160, 0.6), inset 0 0 16px rgba(255, 204, 216, 0.6);
+  filter: brightness(1.1);
+  cursor: pointer;
+}
+
+@keyframes neonPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 30px rgba(255, 80, 120, 0.4), inset 0 0 12px rgba(255, 164, 188, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 38px rgba(255, 160, 200, 0.55), inset 0 0 20px rgba(255, 200, 220, 0.7);
   }
 }

@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+// --- Componente StatCard (sin cambios) ---
 function StatCard({
   title,
   value,
@@ -40,6 +41,7 @@ function StatCard({
   );
 }
 
+// --- quickLinks y collections (sin cambios) ---
 const quickLinks = [
   {
     title: 'Gestionar Empleados',
@@ -85,10 +87,15 @@ const collections = [
   },
 ];
 
+
 export default function HomePage() {
   return (
     <div className="space-y-16">
       <section className="relative overflow-hidden rounded-3xl border border-rose-900/50 bg-gradient-to-br from-[#200008]/90 via-[#31010c]/85 to-[#120005]/95 px-8 py-12 shadow-cinema animate-fade-in sm:px-12">
+      
+      {/* --- Sección 1: Banner Principal (sin cambios) --- */}
+      <section className="relative overflow-hidden rounded-3xl border border-rose-900/50 bg-gradient-to-br from-[#200008]/90 via-[#31010c]/85 to-[#120005]/95 px-8 py-12 shadow-cinema animate-fade-in sm:px-12">
+        {/* ... (contenido del banner principal) ... */}
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,120,150,0.15),transparent_65%)]" />
         <div className="pointer-events-none absolute -top-12 left-0 h-32 w-full bg-[url('/images/film-strip.svg')] bg-[length:360px_140px] opacity-30 mix-blend-screen animate-marquee" />
         <div className="relative flex flex-col gap-12 lg:flex-row lg:items-center">
@@ -141,6 +148,23 @@ export default function HomePage() {
         <div className="space-y-2">
           <h2 className="text-3xl font-semibold text-rose-50">Acceso rápido</h2>
           <p className="text-sm text-rose-100/70">Gestiona cada área clave con un par de clics y efectos que deslumbran.</p>
+      {/* --- Sección 2: Acceso Rápido (CORREGIDA) --- */}
+      <section className="space-y-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+        
+        {/* BLOQUE DUPLICADO ELIMINADO */}
+        
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          {/* Este es el único encabezado que debe quedar */}
+          <div className="space-y-2">
+            <h2 className="text-3xl font-semibold text-rose-50">Acceso rápido</h2>
+            <p className="text-sm text-rose-100/70">Gestiona cada área clave con un par de clics y efectos que deslumbran.</p>
+          </div>
+          <Link
+            href="/sorpresa"
+            className="inline-flex items-center gap-2 rounded-full border border-rose-400/50 px-4 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-rose-200/80 transition-all duration-300 hover:border-rose-200 hover:text-rose-50"
+          >
+            Ir a la función secreta
+          </Link>
         </div>
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {quickLinks.map((item) => (
@@ -150,6 +174,9 @@ export default function HomePage() {
       </section>
 
       <section className="relative overflow-hidden rounded-3xl border border-rose-900/40 bg-gradient-to-br from-white/10 via-[#200008]/45 to-[#120005]/75 p-8 shadow-cinema backdrop-blur animate-fade-in" style={{ animationDelay: '0.35s' }}>
+      {/* --- Sección 3: Colecciones (sin cambios) --- */}
+      <section className="relative overflow-hidden rounded-3xl border border-rose-900/40 bg-gradient-to-br from-white/10 via-[#200008]/45 to-[#120005]/75 p-8 shadow-cinema backdrop-blur animate-fade-in" style={{ animationDelay: '0.35s' }}>
+        {/* ... (contenido de colecciones) ... */}
         <div className="pointer-events-none absolute inset-x-0 -top-16 h-24 bg-[url('/images/film-strip.svg')] bg-[length:360px_140px] opacity-25 animate-marquee" />
         <div className="relative grid gap-8 lg:grid-cols-3">
           {collections.map((collection, index) => (
@@ -184,11 +211,15 @@ export default function HomePage() {
       </section>
 
       <section className="relative overflow-hidden rounded-3xl border border-rose-900/50 bg-black/40 p-8 shadow-cinema backdrop-blur animate-fade-in" style={{ animationDelay: '0.55s' }}>
+      {/* --- Sección 4: Destacados (sin cambios) --- */}
+      <section className="relative overflow-hidden rounded-3xl border border-rose-900/50 bg-black/40 p-8 shadow-cinema backdrop-blur animate-fade-in" style={{ animationDelay: '0.55s' }}>
+        {/* ... (contenido de destacados) ... */}
         <div className="pointer-events-none absolute inset-0 bg-cinema-grid opacity-20" />
         <div className="relative grid gap-10 md:grid-cols-[1.1fr,0.9fr]">
           <div className="space-y-6">
             <h2 className="text-3xl font-semibold text-rose-50">Una interfaz hecha para brillar</h2>
             <p className="text-sm leading-relaxed text-rose-100/75">
+            <p className="text-sm leading-relaxed text-rose-100/775">
               El nuevo look de CineClub mezcla tonos rojizos intensos, texturas cinematográficas y animaciones envolventes que elevan cada interacción.
             </p>
             <ul className="space-y-4 text-sm text-rose-100/80">
@@ -236,6 +267,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      
     </div>
   );
 }
