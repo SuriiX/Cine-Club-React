@@ -464,3 +464,159 @@ body::before {
 }
 
 /* --- FIN: ESTILOS /sorpresa --- */
+/* --- INICIO: ESTILOS CRUD (Formularios y Tablas) --- */
+
+/* Contenedor principal de las páginas de gestión */
+.management-page-container {
+  @apply space-y-8 md:space-y-12;
+}
+
+/* Títulos principales de las páginas (Ej: "Gestión de Géneros") */
+.form-title {
+  @apply text-3xl font-bold text-rose-100 sm:text-4xl tracking-tight;
+}
+
+/* Títulos secundarios (Ej: "Agregar Género", "Lista de Géneros") */
+.table-title {
+  @apply text-xl font-semibold text-rose-50 tracking-wide;
+}
+
+/* Tarjeta base para formularios y tablas */
+.form-card,
+.table-card {
+  @apply relative rounded-2xl border border-rose-900/40 bg-gradient-to-br from-white/10 via-[#200008]/45 to-[#120005]/75 p-6 shadow-cinema backdrop-blur-sm;
+}
+
+/* Etiquetas de formulario */
+.form-label {
+  @apply block mb-2 text-xs font-semibold uppercase tracking-wider text-rose-200/70;
+}
+
+/* Campos de texto y fecha */
+.form-input,
+.table-search-input {
+  @apply w-full rounded-lg border border-rose-900/50 bg-black/20 px-4 py-2.5 text-rose-50 shadow-inner;
+  @apply transition-all duration-200 placeholder:text-rose-200/30;
+  @apply focus:border-rose-500 focus:bg-black/30 focus:ring-2 focus:ring-rose-500/50 focus:outline-none;
+}
+
+/* Campos de select */
+.form-select {
+  @apply w-full rounded-lg border border-rose-900/50 bg-black/20 px-4 py-2.5 text-rose-50 shadow-inner appearance-none;
+  @apply transition-all duration-200;
+  @apply focus:border-rose-500 focus:bg-black/30 focus:ring-2 focus:ring-rose-500/50 focus:outline-none;
+  /* Estilo para la flecha del select */
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ffb3c8' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
+}
+
+/* Inputs deshabilitados (como el Código) */
+.form-input-disabled {
+  @apply bg-black/40 text-rose-200/40 cursor-not-allowed;
+}
+
+/* Contenedor para checkboxes */
+.form-checkbox-container {
+  @apply flex items-center justify-start h-full mt-4 md:mt-0 md:pt-8;
+}
+
+.form-checkbox {
+  @apply h-5 w-5 rounded border border-rose-900/50 bg-black/20 text-rose-600 shadow-inner;
+  @apply focus:ring-rose-500/50 focus:ring-offset-0 focus:ring-2;
+}
+
+.form-checkbox-label {
+  @apply ml-3 text-sm font-medium text-rose-100/90;
+}
+
+
+/* Contenedor de botones del formulario */
+.form-button-container {
+  @apply flex flex-wrap items-center gap-4 mt-8;
+}
+
+/* Botón base */
+.form-button {
+  @apply inline-flex items-center justify-center rounded-full px-6 py-2.5 text-sm font-semibold uppercase tracking-wider shadow-lg transition-all duration-300;
+  @apply focus:outline-none focus:ring-4 focus:ring-opacity-50;
+}
+
+/* Botón de Agregar (verde/azul en temas normales, aquí lo haremos rosa) */
+.form-button-add {
+  @apply bg-rose-600 text-white shadow-rose-600/30 border border-rose-500;
+  @apply hover:bg-rose-500 hover:shadow-rose-500/40 hover:-translate-y-0.5;
+  @apply focus:ring-rose-500;
+}
+
+/* Botón de Modificar (amarillo/naranja, aquí lo haremos blanco/rosa) */
+.form-button-edit {
+  @apply bg-rose-50 text-rose-900 shadow-rose-100/20 border border-rose-200;
+  @apply hover:bg-white hover:shadow-rose-100/30 hover:-translate-y-0.5;
+  @apply focus:ring-rose-100;
+}
+
+/* Botón de Cancelar (gris) */
+.form-button-cancel {
+  @apply bg-white/10 text-rose-100 shadow-black/20 border border-white/20;
+  @apply hover:bg-white/20 hover:-translate-y-0.5;
+  @apply focus:ring-white/30;
+}
+
+
+/* --- Estilos de Tabla --- */
+
+/* Contenedor del header de la tabla (título + búsqueda) */
+.table-header-container {
+  @apply flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6;
+}
+
+/* Wrapper para scroll en tablas grandes */
+.table-wrapper {
+  @apply w-full overflow-x-auto rounded-lg border border-rose-900/40;
+}
+
+/* Tabla principal */
+.table-element {
+  @apply w-full min-w-[768px] /* Ancho mínimo para forzar scroll en móviles */;
+}
+
+/* Cabecera de la tabla */
+.table-head {
+  @apply border-b border-rose-900/40 bg-white/5;
+}
+
+.table-head-cell {
+  @apply px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-rose-200/70;
+}
+
+/* Cuerpo de la tabla */
+.table-body {
+  @apply divide-y divide-rose-900/30;
+}
+
+/* Fila de la tabla */
+.table-body-row {
+  @apply transition-all duration-150 hover:bg-white/10;
+}
+
+/* Celda de la tabla */
+.table-body-cell {
+  @apply px-4 py-3.5 text-sm text-rose-100/90 whitespace-nowrap;
+}
+
+/* Botones de acción (Editar, Eliminar) */
+.table-action-button {
+  @apply p-1.5 rounded-full text-base transition-all duration-200;
+  @apply hover:bg-white/10 hover:shadow-md;
+}
+.table-action-edit {
+  @apply hover:text-rose-300;
+}
+.table-action-delete {
+  @apply hover:text-red-400;
+}
+
+/* --- FIN: ESTILOS CRUD --- */
