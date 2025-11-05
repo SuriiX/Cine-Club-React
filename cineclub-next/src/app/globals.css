@@ -143,6 +143,14 @@ body::before {
   filter: brightness(1.1);
   cursor: pointer;
 }
+
+@media (max-width: 1023px) {
+  .mf-button {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+  }
+}
 @keyframes neonPulse {
   0%, 100% {
     box-shadow: 0 0 30px rgba(255, 80, 120, 0.4), inset 0 0 12px rgba(255, 164, 188, 0.5);

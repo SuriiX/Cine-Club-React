@@ -90,24 +90,24 @@ const collections = [
 
 export default function HomePage() {
   return (
-    <div className="space-y-16">
-      
+    <div className="space-y-14 sm:space-y-16">
+
       {/* --- Sección 1: Banner Principal (sin cambios) --- */}
-      <section className="relative overflow-hidden rounded-3xl border border-rose-900/50 bg-gradient-to-br from-[#200008]/90 via-[#31010c]/85 to-[#120005]/95 px-8 py-12 shadow-cinema animate-fade-in sm:px-12">
+      <section className="relative overflow-hidden rounded-3xl border border-rose-900/50 bg-gradient-to-br from-[#200008]/90 via-[#31010c]/85 to-[#120005]/95 px-6 py-10 shadow-cinema animate-fade-in sm:px-10 sm:py-12">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(255,120,150,0.15),transparent_65%)]" />
         <div className="pointer-events-none absolute -top-12 left-0 h-32 w-full bg-[url('/images/film-strip.svg')] bg-[length:360px_140px] opacity-30 mix-blend-screen animate-marquee" />
-        <div className="relative flex flex-col gap-12 lg:flex-row lg:items-center">
-          <div className="flex-1 space-y-6">
+        <div className="relative flex flex-col gap-10 lg:flex-row lg:items-center">
+          <div className="flex-1 space-y-6 text-center lg:text-left">
             <span className="inline-flex items-center gap-2 rounded-full border border-rose-400/50 bg-rose-500/10 px-4 py-1 text-xs font-semibold uppercase tracking-[0.4em] text-rose-100/80">
               🎞️ Experiencia Cinematográfica
             </span>
             <h1 className="text-4xl font-extrabold tracking-tight text-rose-50 sm:text-5xl lg:text-6xl">
               Bienvenid@ a la cabina de mando de CineClub
             </h1>
-            <p className="max-w-xl text-lg leading-relaxed text-rose-100/80">
+            <p className="mx-auto max-w-2xl text-base leading-relaxed text-rose-100/80 sm:text-lg lg:mx-0">
               Gestiona tu universo cinematográfico desde una interfaz vibrante, pensada para sorprender y sumergirte en la atmósfera roja del séptimo arte.
             </p>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap items-center justify-center gap-4 lg:justify-start">
               <Link
                 href="/peliculas"
                 className="inline-flex items-center gap-2 rounded-full border border-rose-500/60 bg-rose-500/20 px-6 py-3 text-sm font-semibold uppercase tracking-[0.3em] text-rose-50 transition-all duration-300 hover:translate-y-[-2px] hover:bg-rose-500/30 hover:shadow-[0_15px_35px_rgba(255,80,120,0.35)]"
@@ -126,7 +126,7 @@ export default function HomePage() {
           <div className="relative flex-1">
             <div className="absolute -left-16 top-16 h-32 w-32 rounded-full bg-rose-400/20 blur-3xl" />
             <div className="absolute -right-10 bottom-6 h-24 w-24 rounded-full bg-rose-700/20 blur-3xl" />
-            <div className="relative mx-auto w-full max-w-md">
+            <div className="relative mx-auto w-full max-w-sm sm:max-w-md">
               <div className="absolute -inset-8 rounded-[32px] bg-gradient-to-tr from-rose-500/25 via-transparent to-rose-700/25 blur-3xl" />
               <Image
                 src="/images/hero-cinema.svg"
@@ -144,17 +144,16 @@ export default function HomePage() {
 
       {/* --- Sección 2: Acceso Rápido (CORREGIDA) --- */}
       <section className="space-y-8 animate-fade-in" style={{ animationDelay: '0.2s' }}>
-        
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <div className="space-y-2">
-            <h2 className="text-3xl font-semibold text-rose-50">Acceso rápido</h2>
-            <p className="text-sm text-rose-100/70">Gestiona cada área clave con un par de clics y efectos que deslumbran.</p>
+          <div className="space-y-2 text-center sm:text-left">
+            <h2 className="text-2xl font-semibold text-rose-50 sm:text-3xl">Acceso rápido</h2>
+            <p className="text-sm text-rose-100/70 sm:text-base">Gestiona cada área clave con un par de clics y efectos que deslumbran.</p>
           </div>
-          
+
           {/* --- BOTÓN CORREGIDO --- */}
           <Link
             href="/sorpresa"
-            className="inline-flex items-center gap-3 rounded-full border border-rose-400/50 px-5 py-2 text-sm font-semibold tracking-widest text-rose-200/80 transition-all duration-300 hover:border-rose-200 hover:text-rose-50 hover:shadow-cinema"
+            className="inline-flex items-center justify-center gap-3 rounded-full border border-rose-400/50 px-5 py-2 text-sm font-semibold tracking-widest text-rose-200/80 transition-all duration-300 hover:border-rose-200 hover:text-rose-50 hover:shadow-cinema"
           >
             <span>❤️</span>
             <span>MF</span>
@@ -162,7 +161,7 @@ export default function HomePage() {
           {/* --- FIN BOTÓN CORREGIDO --- */}
 
         </div>
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 md:grid-cols-2 xl:grid-cols-3">
           {quickLinks.map((item) => (
             <StatCard key={item.title} {...item} />
           ))}
@@ -170,7 +169,7 @@ export default function HomePage() {
       </section>
 
       {/* --- Sección 3: Colecciones (sin cambios) --- */}
-      <section className="relative overflow-hidden rounded-3xl border border-rose-900/40 bg-gradient-to-br from-white/10 via-[#200008]/45 to-[#120005]/75 p-8 shadow-cinema backdrop-blur animate-fade-in" style={{ animationDelay: '0.35s' }}>
+      <section className="relative overflow-hidden rounded-3xl border border-rose-900/40 bg-gradient-to-br from-white/10 via-[#200008]/45 to-[#120005]/75 p-6 shadow-cinema backdrop-blur animate-fade-in sm:p-8" style={{ animationDelay: '0.35s' }}>
         <div className="pointer-events-none absolute inset-x-0 -top-16 h-24 bg-[url('/images/film-strip.svg')] bg-[length:360px_140px] opacity-25 animate-marquee" />
         <div className="relative grid gap-8 lg:grid-cols-3">
           {collections.map((collection, index) => (
@@ -180,7 +179,7 @@ export default function HomePage() {
               style={{ animationDelay: `${0.2 * (index + 1)}s` }}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-rose-500/20 via-transparent to-rose-800/30 opacity-60 transition-opacity duration-500 group-hover:opacity-90" />
-              <div className="relative flex h-full flex-col gap-5 p-6">
+              <div className="relative flex h-full flex-col gap-5 p-5 sm:p-6">
                 <Image
                   src={collection.image}
                   alt={collection.title}
@@ -205,33 +204,33 @@ export default function HomePage() {
       </section>
 
       {/* --- Sección 4: Destacados (sin cambios) --- */}
-      <section className="relative overflow-hidden rounded-3xl border border-rose-900/50 bg-black/40 p-8 shadow-cinema backdrop-blur animate-fade-in" style={{ animationDelay: '0.55s' }}>
+      <section className="relative overflow-hidden rounded-3xl border border-rose-900/50 bg-black/40 p-6 shadow-cinema backdrop-blur animate-fade-in sm:p-8" style={{ animationDelay: '0.55s' }}>
         <div className="pointer-events-none absolute inset-0 bg-cinema-grid opacity-20" />
-        <div className="relative grid gap-10 md:grid-cols-[1.1fr,0.9fr]">
-          <div className="space-y-6">
-            <h2 className="text-3xl font-semibold text-rose-50">Una interfaz hecha para brillar</h2>
-            <p className="text-sm leading-relaxed text-rose-100/75">
+        <div className="relative grid gap-8 md:grid-cols-[1.1fr,0.9fr] md:gap-10">
+          <div className="space-y-5 text-center md:text-left">
+            <h2 className="text-2xl font-semibold text-rose-50 sm:text-3xl">Una interfaz hecha para brillar</h2>
+            <p className="text-sm leading-relaxed text-rose-100/75 sm:text-base">
               El nuevo look de CineClub mezcla tonos rojizos intensos, texturas cinematográficas y animaciones envolventes que elevan cada interacción.
             </p>
-            <ul className="space-y-4 text-sm text-rose-100/80">
+            <ul className="space-y-3 text-left text-sm text-rose-100/80 sm:space-y-4 sm:text-base">
               <li className="flex items-start gap-3">
                 <span className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-rose-500/30 text-rose-50">✨</span>
-                Animaciones dinámicas en tarjetas y portadas que se sienten como una marquesina en movimiento.
+                <span>Animaciones dinámicas en tarjetas y portadas que se sienten como una marquesina en movimiento.</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-rose-500/30 text-rose-50">📽️</span>
-                Imágenes cuidadosamente creadas para reforzar la estética deluxe de cada sección.
+                <span>Imágenes cuidadosamente creadas para reforzar la estética deluxe de cada sección.</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-rose-500/30 text-rose-50">🎟️</span>
-                Botones y enlaces con brillos tipo neón que invitan a seguir explorando el club.
+                <span>Botones y enlaces con brillos tipo neón que invitan a seguir explorando el club.</span>
               </li>
             </ul>
           </div>
 
           <div className="relative flex items-center justify-center">
             <div className="absolute -inset-12 rounded-full bg-rose-600/20 blur-3xl" />
-            <div className="relative w-full max-w-md overflow-hidden rounded-2xl border border-rose-900/50 bg-gradient-to-br from-[#240009]/70 via-[#110005]/75 to-[#050103]/90 p-6">
+            <div className="relative w-full max-w-sm overflow-hidden rounded-2xl border border-rose-900/50 bg-gradient-to-br from-[#240009]/70 via-[#110005]/75 to-[#050103]/90 p-6 sm:max-w-md">
               <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.35em] text-rose-200/70">
                 <span>Agenda</span>
                 <span>Panel</span>
