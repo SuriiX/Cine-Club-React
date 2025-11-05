@@ -9,12 +9,6 @@
   --foreground: #f8e9ec;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -464,159 +458,338 @@ body::before {
 }
 
 /* --- FIN: ESTILOS /sorpresa --- */
-/* --- INICIO: ESTILOS CRUD (Formularios y Tablas) --- */
+/* --- INICIO: ESTILOS CRUD (Versión CSS Simple) --- */
 
 /* Contenedor principal de las páginas de gestión */
 .management-page-container {
-  @apply space-y-8 md:space-y-12;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+@media (min-width: 768px) {
+  .management-page-container {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
 }
 
 /* Títulos principales de las páginas (Ej: "Gestión de Géneros") */
 .form-title {
-  @apply text-3xl font-bold text-rose-100 sm:text-4xl tracking-tight;
+  font-size: 1.875rem; /* 30px */
+  line-height: 2.25rem; /* 36px */
+  font-weight: 700;
+  color: #ffe9ef; /* rose-100 */
+  letter-spacing: -0.025em;
+  margin-bottom: 2rem;
+}
+@media (min-width: 640px) {
+  .form-title {
+    font-size: 2.25rem; /* 36px */
+    line-height: 2.5rem; /* 40px */
+  }
 }
 
 /* Títulos secundarios (Ej: "Agregar Género", "Lista de Géneros") */
 .table-title {
-  @apply text-xl font-semibold text-rose-50 tracking-wide;
+  font-size: 1.25rem; /* 20px */
+  line-height: 1.75rem; /* 28px */
+  font-weight: 600;
+  color: #f8e9ec; /* rose-50 */
+  letter-spacing: 0.025em;
 }
 
 /* Tarjeta base para formularios y tablas */
 .form-card,
 .table-card {
-  @apply relative rounded-2xl border border-rose-900/40 bg-gradient-to-br from-white/10 via-[#200008]/45 to-[#120005]/75 p-6 shadow-cinema backdrop-blur-sm;
+  position: relative;
+  border-radius: 1rem; /* rounded-2xl */
+  border: 1px solid rgba(128, 0, 32, 0.4); /* border-rose-900/40 */
+  background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0.1), rgba(32, 0, 8, 0.45), rgba(18, 0, 5, 0.75));
+  padding: 1.5rem; /* p-6 */
+  box-shadow: 0 20px 60px rgba(255, 80, 120, 0.25), 0 0 30px rgba(255, 120, 160, 0.25); /* shadow-cinema */
+  backdrop-filter: blur(4px);
+  margin-bottom: 2rem;
 }
 
 /* Etiquetas de formulario */
 .form-label {
-  @apply block mb-2 text-xs font-semibold uppercase tracking-wider text-rose-200/70;
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.75rem; /* 12px */
+  line-height: 1rem; /* 16px */
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 226, 239, 0.7); /* rose-200/70 */
 }
 
 /* Campos de texto y fecha */
 .form-input,
 .table-search-input {
-  @apply w-full rounded-lg border border-rose-900/50 bg-black/20 px-4 py-2.5 text-rose-50 shadow-inner;
-  @apply transition-all duration-200 placeholder:text-rose-200/30;
-  @apply focus:border-rose-500 focus:bg-black/30 focus:ring-2 focus:ring-rose-500/50 focus:outline-none;
+  width: 100%;
+  border-radius: 0.5rem; /* rounded-lg */
+  border: 1px solid rgba(128, 0, 32, 0.5); /* border-rose-900/50 */
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 0.625rem 1rem; /* px-4 py-2.5 */
+  color: #f8e9ec; /* rose-50 */
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+  transition-property: all;
+  transition-duration: 200ms;
+}
+.form-input::placeholder,
+.table-search-input::placeholder {
+  color: rgba(255, 226, 239, 0.3); /* placeholder:text-rose-200/30 */
+}
+.form-input:focus,
+.table-search-input:focus {
+  border-color: #ff4d7d; /* focus:border-rose-500 */
+  background-color: rgba(0, 0, 0, 0.3);
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(255, 77, 125, 0.5); /* focus:ring-2 focus:ring-rose-500/50 */
 }
 
 /* Campos de select */
 .form-select {
-  @apply w-full rounded-lg border border-rose-900/50 bg-black/20 px-4 py-2.5 text-rose-50 shadow-inner appearance-none;
-  @apply transition-all duration-200;
-  @apply focus:border-rose-500 focus:bg-black/30 focus:ring-2 focus:ring-rose-500/50 focus:outline-none;
-  /* Estilo para la flecha del select */
+  width: 100%;
+  border-radius: 0.5rem; /* rounded-lg */
+  border: 1px solid rgba(128, 0, 32, 0.5); /* border-rose-900/50 */
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 0.625rem 1rem; /* px-4 py-2.5 */
+  color: #f8e9ec; /* rose-50 */
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+  appearance: none;
+  transition-property: all;
+  transition-duration: 200ms;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ffb3c8' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
   background-position: right 0.5rem center;
   background-repeat: no-repeat;
   background-size: 1.5em 1.5em;
   padding-right: 2.5rem;
 }
+.form-select:focus {
+  border-color: #ff4d7d; /* focus:border-rose-500 */
+  background-color: rgba(0, 0, 0, 0.3);
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px rgba(255, 77, 125, 0.5); /* focus:ring-2 focus:ring-rose-500/50 */
+}
 
 /* Inputs deshabilitados (como el Código) */
 .form-input-disabled {
-  @apply bg-black/40 text-rose-200/40 cursor-not-allowed;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: rgba(255, 226, 239, 0.4);
+  cursor: not-allowed;
 }
 
 /* Contenedor para checkboxes */
 .form-checkbox-container {
-  @apply flex items-center justify-start h-full mt-4 md:mt-0 md:pt-8;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  margin-top: 1rem;
+}
+@media (min-width: 768px) {
+  .form-checkbox-container {
+    margin-top: 0;
+    padding-top: 2rem; /* pt-8 */
+  }
 }
 
 .form-checkbox {
-  @apply h-5 w-5 rounded border border-rose-900/50 bg-black/20 text-rose-600 shadow-inner;
-  @apply focus:ring-rose-500/50 focus:ring-offset-0 focus:ring-2;
+  height: 1.25rem; /* h-5 */
+  width: 1.25rem; /* w-5 */
+  border-radius: 0.25rem;
+  border: 1px solid rgba(128, 0, 32, 0.5); /* border-rose-900/50 */
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #ff335c; /* text-rose-600 */
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+}
+.form-checkbox:focus {
+  box-shadow: 0 0 0 2px rgba(255, 77, 125, 0.5); /* focus:ring-2 focus:ring-rose-500/50 */
 }
 
 .form-checkbox-label {
-  @apply ml-3 text-sm font-medium text-rose-100/90;
+  margin-left: 0.75rem;
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.25rem; /* 20px */
+  font-weight: 500;
+  color: rgba(248, 233, 236, 0.9);
 }
-
 
 /* Contenedor de botones del formulario */
 .form-button-container {
-  @apply flex flex-wrap items-center gap-4 mt-8;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
 }
 
 /* Botón base */
 .form-button {
-  @apply inline-flex items-center justify-center rounded-full px-6 py-2.5 text-sm font-semibold uppercase tracking-wider shadow-lg transition-all duration-300;
-  @apply focus:outline-none focus:ring-4 focus:ring-opacity-50;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px; /* rounded-full */
+  padding: 0.625rem 1.5rem; /* px-6 py-2.5 */
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.25rem; /* 20px */
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  transition-property: all;
+  transition-duration: 300ms;
+}
+.form-button:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--tw-shadow-color);
 }
 
-/* Botón de Agregar (verde/azul en temas normales, aquí lo haremos rosa) */
+/* Botón de Agregar */
 .form-button-add {
-  @apply bg-rose-600 text-white shadow-rose-600/30 border border-rose-500;
-  @apply hover:bg-rose-500 hover:shadow-rose-500/40 hover:-translate-y-0.5;
-  @apply focus:ring-rose-500;
+  background-color: #ff335c; /* bg-rose-600 */
+  color: #ffffff;
+  border: 1px solid #ff4d7d; /* border-rose-500 */
+  --tw-shadow-color: rgba(255, 51, 92, 0.5);
+  box-shadow: 0 4px 6px -1px rgba(255, 51, 92, 0.3), 0 2px 4px -2px rgba(255, 51, 92, 0.3);
+}
+.form-button-add:hover {
+  background-color: #ff4d7d; /* hover:bg-rose-500 */
+  box-shadow: 0 4px 6px -1px rgba(255, 77, 125, 0.4), 0 2px 4px -2px rgba(255, 77, 125, 0.4);
+  transform: translateY(-2px);
 }
 
-/* Botón de Modificar (amarillo/naranja, aquí lo haremos blanco/rosa) */
+/* Botón de Modificar */
 .form-button-edit {
-  @apply bg-rose-50 text-rose-900 shadow-rose-100/20 border border-rose-200;
-  @apply hover:bg-white hover:shadow-rose-100/30 hover:-translate-y-0.5;
-  @apply focus:ring-rose-100;
+  background-color: #f8e9ec; /* bg-rose-50 */
+  color: #800020; /* text-rose-900 */
+  border: 1px solid #ffe9ef; /* border-rose-200 */
+  --tw-shadow-color: rgba(248, 233, 236, 0.5);
+  box-shadow: 0 4px 6px -1px rgba(248, 233, 236, 0.2), 0 2px 4px -2px rgba(248, 233, 236, 0.2);
+}
+.form-button-edit:hover {
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px -1px rgba(255, 255, 255, 0.3), 0 2px 4px -2px rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
 }
 
-/* Botón de Cancelar (gris) */
+/* Botón de Cancelar */
 .form-button-cancel {
-  @apply bg-white/10 text-rose-100 shadow-black/20 border border-white/20;
-  @apply hover:bg-white/20 hover:-translate-y-0.5;
-  @apply focus:ring-white/30;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffe9ef; /* text-rose-100 */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  --tw-shadow-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -2px rgba(0, 0, 0, 0.2);
 }
-
+.form-button-cancel:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
 
 /* --- Estilos de Tabla --- */
 
 /* Contenedor del header de la tabla (título + búsqueda) */
 .table-header-container {
-  @apply flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+@media (min-width: 768px) {
+  .table-header-container {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
 }
 
 /* Wrapper para scroll en tablas grandes */
 .table-wrapper {
-  @apply w-full overflow-x-auto rounded-lg border border-rose-900/40;
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 0.5rem; /* rounded-lg */
+  border: 1px solid rgba(128, 0, 32, 0.4); /* border-rose-900/40 */
 }
 
 /* Tabla principal */
 .table-element {
-  @apply w-full min-w-[768px] /* Ancho mínimo para forzar scroll en móviles */;
+  width: 100%;
+  min-width: 768px; /* Ancho mínimo para forzar scroll en móviles */
 }
 
 /* Cabecera de la tabla */
 .table-head {
-  @apply border-b border-rose-900/40 bg-white/5;
+  border-bottom: 1px solid rgba(128, 0, 32, 0.4); /* border-rose-900/40 */
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 .table-head-cell {
-  @apply px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-rose-200/70;
+  padding: 0.75rem 1rem; /* px-4 py-3 */
+  text-align: left;
+  font-size: 0.75rem; /* 12px */
+  line-height: 1rem; /* 16px */
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 226, 239, 0.7); /* rose-200/70 */
+}
+.table-head-cell.text-center {
+  text-align: center;
+}
+.table-head-cell.text-left {
+  text-align: left;
 }
 
 /* Cuerpo de la tabla */
 .table-body {
-  @apply divide-y divide-rose-900/30;
+  border-bottom: 1px solid rgba(128, 0, 32, 0.3); /* divide-rose-900/30 */
 }
 
 /* Fila de la tabla */
 .table-body-row {
-  @apply transition-all duration-150 hover:bg-white/10;
+  transition-property: all;
+  transition-duration: 150ms;
+}
+.table-body-row:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.table-body tr {
+   border-bottom: 1px solid rgba(128, 0, 32, 0.3);
 }
 
 /* Celda de la tabla */
 .table-body-cell {
-  @apply px-4 py-3.5 text-sm text-rose-100/90 whitespace-nowrap;
+  padding: 0.875rem 1rem; /* px-4 py-3.5 */
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.25rem; /* 20px */
+  color: rgba(248, 233, 236, 0.9);
+  white-space: nowrap;
+}
+.table-body-cell.font-mono {
+  font-family: var(--font-mono); /* Asegúrate de tener --font-mono definido o usa 'ui-monospace', 'monospace' */
 }
 
 /* Botones de acción (Editar, Eliminar) */
 .table-action-button {
-  @apply p-1.5 rounded-full text-base transition-all duration-200;
-  @apply hover:bg-white/10 hover:shadow-md;
+  padding: 0.375rem; /* p-1.5 */
+  border-radius: 9999px; /* rounded-full */
+  font-size: 1.125rem; /* text-base */
+  line-height: 1.75rem;
+  transition-property: all;
+  transition-duration: 200ms;
 }
-.table-action-edit {
-  @apply hover:text-rose-300;
+.table-action-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
-.table-action-delete {
-  @apply hover:text-red-400;
+.table-action-edit:hover {
+  color: #ffb3c8; /* hover:text-rose-300 */
+}
+.table-action-delete:hover {
+  color: #f87171; /* hover:text-red-400 */
 }
 
 /* --- FIN: ESTILOS CRUD --- */
