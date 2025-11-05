@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/../prisma/lib';
-
+export const dynamic = 'force-dynamic';
 // GET (Listar Directores)
 // Basado en listarDirector()
 export async function GET() {

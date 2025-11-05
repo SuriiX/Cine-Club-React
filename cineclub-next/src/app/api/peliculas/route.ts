@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/../prisma/lib';
-
+export const dynamic = 'force-dynamic';
 // GET (Listar Películas)
 // Basado en listarPelicula()
 export async function GET() {

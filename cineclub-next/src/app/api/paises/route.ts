@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/../prisma/lib';
-
+export const dynamic = 'force-dynamic';
 export async function GET() {
   try {
     const paises = await prisma.tblPai.findMany({

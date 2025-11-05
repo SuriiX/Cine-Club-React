@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/../prisma/lib';
-
+export const dynamic = 'force-dynamic';
 // Basado en productoraController.cs
 export async function GET() {
   try {
