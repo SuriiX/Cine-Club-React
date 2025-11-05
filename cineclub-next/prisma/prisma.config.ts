@@ -1,4 +1,7 @@
 import { defineConfig, env } from "prisma/config";
+import { config } from 'dotenv';
+
+config(); // <-- Esto es correcto, déjalo
 
 export default defineConfig({
   schema: "prisma/schema.prisma",
@@ -7,6 +10,7 @@ export default defineConfig({
   },
   engine: "classic",
   datasource: {
-    url: env("DATABASE_URL"),
+    url: env("DATABASE_URL"), // <-- Esto es correcto, déjalo
   },
+  // La propiedad 'seed' que estaba aquí fue eliminada
 });
