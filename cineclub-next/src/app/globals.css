@@ -2,6 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+
+/* Reset y compatibilidad global */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body, #__next {
+  height: 100%;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button { font-family: inherit; }
+
 :root {
   --background: #080204;
   --background-gradient: radial-gradient(circle at 20% 20%, rgba(80, 0, 12, 0.85), transparent 55%),
