@@ -24,11 +24,11 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="relative flex h-screen w-64 flex-col overflow-hidden border-r border-rose-900/40 bg-gradient-to-b from-black via-[#140006] to-[#2d0010] p-6 text-rose-50 shadow-2xl shadow-rose-900/40">
+    <aside className="relative z-20 flex w-full flex-col overflow-hidden border-b border-rose-900/40 bg-gradient-to-b from-black via-[#140006] to-[#2d0010] px-6 pb-4 pt-6 text-rose-50 shadow-2xl shadow-rose-900/40 lg:h-screen lg:w-64 lg:border-b-0 lg:border-r lg:px-6 lg:py-6">
       <div className="pointer-events-none absolute inset-0 bg-[url('/images/film-strip.svg')] bg-[length:320px_120px] opacity-[0.15] mix-blend-screen"></div>
 
-      <div className="relative z-10 flex flex-col gap-8">
-        <div className="flex flex-col items-center gap-4 text-center">
+      <div className="relative z-10 flex flex-col gap-6 lg:gap-8">
+        <div className="flex flex-col items-center gap-4 text-center lg:items-stretch">
           <div className="relative">
             <div className="absolute inset-0 -translate-y-1 animate-spotlight rounded-full bg-rose-500/30 blur-2xl"></div>
             <Image
@@ -39,13 +39,13 @@ export default function Sidebar() {
               className="relative z-10 drop-shadow-[0_0_20px_rgba(255,100,140,0.55)]"
             />
           </div>
-          <div>
-            <p className="text-xl font-semibold tracking-wider">CineClub</p>
-            <p className="text-sm font-medium uppercase tracking-[0.35em] text-rose-200/70">Edición Premier</p>
+          <div className="space-y-1">
+            <p className="text-lg font-semibold tracking-wider lg:text-xl">CineClub</p>
+            <p className="text-xs font-medium uppercase tracking-[0.35em] text-rose-200/70 lg:text-sm">Edición Premier</p>
           </div>
         </div>
 
-        <nav className="flex flex-col gap-2">
+        <nav className="flex gap-2 overflow-x-auto pb-1 lg:flex-col lg:overflow-visible lg:pb-0">
           {navLinks.map((link) => {
             const isActive = pathname.startsWith(link.href) && (link.href !== '/' || pathname === '/');
 
@@ -53,14 +53,14 @@ export default function Sidebar() {
               <Link
                 key={link.nombre}
                 href={link.href}
-                className={`group relative flex items-center gap-3 rounded-xl px-4 py-3 text-base font-semibold tracking-wide transition-all duration-300 ${
+                className={`group relative flex min-w-[140px] items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold tracking-wide transition-all duration-300 lg:min-w-0 lg:text-base ${
                   isActive
-                    ? 'translate-x-1 bg-gradient-to-r from-rose-600/70 via-rose-500/60 to-red-600/60 text-rose-50 shadow-cinema'
-                    : 'text-rose-200/70 hover:translate-x-2 hover:bg-white/5 hover:text-rose-50'
+                    ? 'translate-y-0 bg-gradient-to-r from-rose-600/70 via-rose-500/60 to-red-600/60 text-rose-50 shadow-cinema lg:translate-x-1'
+                    : 'text-rose-200/70 hover:translate-y-[-2px] hover:bg-white/5 hover:text-rose-50 lg:hover:translate-x-2'
                 }`}
               >
                 <span
-                  className={`absolute inset-y-1 left-1 w-1 rounded-full bg-rose-400/80 transition-all duration-300 ${
+                  className={`absolute inset-y-1 left-1 hidden w-1 rounded-full bg-rose-400/80 transition-all duration-300 lg:block ${
                     isActive ? 'scale-y-100 opacity-100' : 'scale-y-0 opacity-0 group-hover:scale-y-100 group-hover:opacity-70'
                   }`}
                 ></span>
@@ -73,9 +73,9 @@ export default function Sidebar() {
           })}
         </nav>
 
-        <div className="mt-auto rounded-2xl border border-rose-900/40 bg-white/5 p-4 text-sm text-rose-100/80 backdrop-blur">
+        <div className="mt-4 rounded-2xl border border-rose-900/40 bg-white/5 p-4 text-xs text-rose-100/80 backdrop-blur lg:mt-auto lg:text-sm">
           <p className="font-semibold uppercase tracking-[0.3em] text-rose-200">Función Especial</p>
-          <p className="mt-2 text-xs leading-relaxed text-rose-100/70">
+          <p className="mt-2 leading-relaxed text-rose-100/70">
             Vive la magia del séptimo arte con estrenos exclusivos y la mejor experiencia visual.
           </p>
         </div>
